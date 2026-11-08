@@ -88,6 +88,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(RAIZ, "imagenes")
 JSON_PATH = os.path.join(RAIZ, "datos", "imagenes.json")
 HTML_PATH = os.path.join(RAIZ, "index.html")
+TIEMPO_PAGINA = int(os.environ.get("TIEMPO_PAGINA", "420"))
 CONCURRENCIA = int(os.environ.get("CONCURRENCIA", "4"))
 MIN_BYTES = 25_000
 BASURA = re.compile(r"(logo|avatar|icon|sprite|gravatar|emoji|/ads?/|adserver|doubleclick|banner|pixel|tracking|badge|button|social|spinner|placeholder|blank\.)", re.I)
@@ -259,10 +260,17 @@ async def main():
         ctx = await br.new_context(viewport={"width": 1400, "height": 900}, locale="es-ES",
               user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36")
         sem = asyncio.Semaphore(CONCURRENCIA)
-        r = await asyncio.gather(*[asyncio.wait_for(procesar(ctx, n, u, sem, informe), 240) for n, u in PAGINAS.items()], return_exceptions=True)
-        for (n, u), x in zip(PAGINAS.items(), r):
-            if isinstance(x, Exception): informe.append(f"FALLO [{n}] {u}: {type(x).__name__}")
-            else: todas += x
+        libre = asyncio.Semaphore(10_000)
+        async def limitada(n, u):
+            async with sem:                      # el cronómetro empieza al salir de la cola
+                try:
+                    return await asyncio.wait_for(procesar(ctx, n, u, libre, informe), TIEMPO_PAGINA)
+                except asyncio.TimeoutError:
+                    informe.append(f"TIEMPO AGOTADO [{n}] {u} ({TIEMPO_PAGINA}s)"); print(informe[-1], flush=True); return []
+                except BaseException as e:
+                    informe.append(f"FALLO [{n}] {u}: {type(e).__name__}"); print(informe[-1], flush=True); return []
+        r = await asyncio.gather(*[limitada(n, u) for n, u in PAGINAS.items()])
+        for x in r: todas += x
         await br.close()
     vistos, nuevos = set(), []
     cont = {}
