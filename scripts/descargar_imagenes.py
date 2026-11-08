@@ -90,6 +90,8 @@ JSON_PATH = os.path.join(RAIZ, "datos", "imagenes.json")
 HTML_PATH = os.path.join(RAIZ, "index.html")
 TIEMPO_PAGINA = int(os.environ.get("TIEMPO_PAGINA", "420"))
 PRESUPUESTO_CLICS = int(os.environ.get("PRESUPUESTO_CLICS", "150"))
+DETENER = False
+FIN = time.monotonic() + int(os.environ.get("LIMITE_TOTAL", str(48 * 60)))
 CONCURRENCIA = int(os.environ.get("CONCURRENCIA", "4"))
 MIN_BYTES = 25_000
 BASURA = re.compile(r"(logo|avatar|icon|sprite|gravatar|emoji|/ads?/|adserver|doubleclick|banner|pixel|tracking|badge|button|social|spinner|placeholder|blank\.)", re.I)
@@ -214,7 +216,8 @@ async def procesar(ctx, nombre, url, sem, informe):
                     except Exception: pass
         try:
             await fases()
-        except BaseException as e:          # conservar lo ya capturado aunque algo falle o se agote el tiempo
+        except BaseException as e:          # conservar lo ya capturado aunque algo falle o se agote el tiempo de la página
+            if DETENER or time.monotonic() > FIN: raise   # pero una cancelación real SÍ se respeta
             informe.append(f"AVISO [{nombre}] incompleta: {type(e).__name__}")
         try: await asyncio.gather(*tareas, return_exceptions=True)
         except BaseException: pass
@@ -262,43 +265,66 @@ def actualizar_catalogo(nuevos):
     open(HTML_PATH, "w", encoding="utf-8").write(html2)
 
 async def main():
+    import signal
     os.makedirs(OUT, exist_ok=True); os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
     try:                                   # ANTES de descargar: borrar las descargas automáticas anteriores
-        for i in json.load(open(JSON_PATH, encoding="utf-8")):
-            if i.get("origen") == "auto" and i.get("archivo"):
-                try: os.remove(os.path.join(OUT, i["archivo"]))
+        for it in json.load(open(JSON_PATH, encoding="utf-8")):
+            if it.get("origen") == "auto" and it.get("archivo"):
+                try: os.remove(os.path.join(OUT, it["archivo"]))
                 except Exception: pass
     except Exception: pass
-    informe, todas = [], []
-    async with async_playwright() as p:
-        br = await p.chromium.launch()
-        ctx = await br.new_context(viewport={"width": 1400, "height": 900}, locale="es-ES",
-              user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36")
-        sem = asyncio.Semaphore(CONCURRENCIA)
-        libre = asyncio.Semaphore(10_000)
-        async def limitada(n, u):
-            async with sem:                      # el cronómetro empieza al salir de la cola
-                try:
-                    return await asyncio.wait_for(procesar(ctx, n, u, libre, informe), TIEMPO_PAGINA)
-                except asyncio.TimeoutError:
-                    informe.append(f"TIEMPO AGOTADO [{n}] {u} ({TIEMPO_PAGINA}s)"); print(informe[-1], flush=True); return []
-                except BaseException as e:
-                    informe.append(f"FALLO [{n}] {u}: {type(e).__name__}"); print(informe[-1], flush=True); return []
-        r = await asyncio.gather(*[limitada(n, u) for n, u in PAGINAS.items()])
-        for x in r: todas += x
-        await br.close()
-    vistos, nuevos = set(), []
-    cont = {}
-    for x in todas:
-        h = hashlib.sha1(x["data"]).hexdigest()
-        if h in vistos: continue
-        vistos.add(h)
-        cont[x["nombre"]] = cont.get(x["nombre"], 0) + 1
-        fn = f"{x['nombre']}-{cont[x['nombre']]:02d}{EXT[x['fmt']]}"
-        open(os.path.join(OUT, fn), "wb").write(x["data"])
-        nuevos.append({**x, "archivo": fn, "titulo": f"{x['nombre']} ({cont[x['nombre']]})"})
-    open(os.path.join(RAIZ, "datos", "informe_descarga.txt"), "w", encoding="utf-8").write("\n".join(informe) + f"\n\nTOTAL: {len(nuevos)} imágenes únicas")
-    actualizar_catalogo([{k: v for k, v in n.items() if k != "data"} for n in nuevos])
+    informe, nuevos, vistos, cont = [], [], set(), {}
+
+    def guardar(res):
+        """Guarda en disco las imágenes de una página y actualiza catálogo e informe al momento."""
+        for x in res:
+            h = hashlib.sha1(x["data"]).hexdigest()
+            if h in vistos: continue
+            vistos.add(h)
+            cont[x["nombre"]] = cont.get(x["nombre"], 0) + 1
+            fn = f"{x['nombre']}-{cont[x['nombre']]:02d}{EXT[x['fmt']]}"
+            open(os.path.join(OUT, fn), "wb").write(x["data"])
+            nuevos.append({k: v for k, v in x.items() if k != "data"} | {"archivo": fn, "titulo": f"{x['nombre']} ({cont[x['nombre']]})"})
+        open(os.path.join(RAIZ, "datos", "informe_descarga.txt"), "w", encoding="utf-8").write(
+            "\n".join(informe) + f"\n\nTOTAL (hasta ahora): {len(nuevos)} imágenes únicas")
+        actualizar_catalogo(nuevos)
+
+    async def trabajo():
+        async with async_playwright() as p:
+            br = await p.chromium.launch()
+            ctx = await br.new_context(viewport={"width": 1400, "height": 900}, locale="es-ES",
+                  user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36")
+            sem = asyncio.Semaphore(CONCURRENCIA)
+            libre = asyncio.Semaphore(10_000)
+            async def limitada(n, u):
+                async with sem:                  # el cronómetro empieza al salir de la cola
+                    if DETENER or time.monotonic() > FIN:
+                        informe.append(f"OMITIDA [{n}] (ejecución interrumpida)"); return
+                    try:
+                        res = await asyncio.wait_for(procesar(ctx, n, u, libre, informe), TIEMPO_PAGINA)
+                    except asyncio.TimeoutError:
+                        informe.append(f"TIEMPO AGOTADO [{n}] {u} ({TIEMPO_PAGINA}s)"); print(informe[-1], flush=True); res = []
+                    except asyncio.CancelledError:
+                        raise
+                    except BaseException as e:
+                        informe.append(f"FALLO [{n}] {u}: {type(e).__name__}"); print(informe[-1], flush=True); res = []
+                    guardar(res)                 # guardado inmediato, página a página
+            await asyncio.gather(*[limitada(n, u) for n, u in PAGINAS.items()])
+            await br.close()
+
+    tarea = asyncio.ensure_future(trabajo())
+    def parar():
+        global DETENER
+        DETENER = True; tarea.cancel()
+    loop = asyncio.get_running_loop()
+    for sg in (signal.SIGINT, signal.SIGTERM):      # si cancelas el workflow, lo ya descargado se conserva
+        try: loop.add_signal_handler(sg, parar)
+        except Exception: pass
+    try:
+        await asyncio.wait_for(tarea, max(1, FIN - time.monotonic()))
+    except BaseException as e:
+        informe.append(f"INTERRUMPIDO: {type(e).__name__} (se conserva lo descargado hasta ahora)")
+    guardar([])
     print(f"\nListo: {len(nuevos)} imágenes únicas en imagenes/", flush=True)
 
 if __name__ == "__main__":
