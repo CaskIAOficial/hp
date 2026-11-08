@@ -5,7 +5,7 @@ amplían en ventana emergente (lightbox, con "X"), captura todo lo que carga la 
 directos a imágenes y pide la versión grande. Filtra iconos, banners y publicidad.
 Uso PERSONAL. Requisitos: pip install requests beautifulsoup4 playwright pillow && playwright install chromium
 """
-import os, re, io, json, hashlib, asyncio, sys
+import time, os, re, io, json, hashlib, asyncio, sys
 from urllib.parse import urljoin, urlparse
 from playwright.async_api import async_playwright
 from PIL import Image
@@ -89,6 +89,7 @@ OUT = os.path.join(RAIZ, "imagenes")
 JSON_PATH = os.path.join(RAIZ, "datos", "imagenes.json")
 HTML_PATH = os.path.join(RAIZ, "index.html")
 TIEMPO_PAGINA = int(os.environ.get("TIEMPO_PAGINA", "420"))
+PRESUPUESTO_CLICS = int(os.environ.get("PRESUPUESTO_CLICS", "150"))
 CONCURRENCIA = int(os.environ.get("CONCURRENCIA", "4"))
 MIN_BYTES = 25_000
 BASURA = re.compile(r"(logo|avatar|icon|sprite|gravatar|emoji|/ads?/|adserver|doubleclick|banner|pixel|tracking|badge|button|social|spinner|placeholder|blank\.)", re.I)
@@ -158,7 +159,8 @@ async def procesar(ctx, nombre, url, sem, informe):
         async def on_resp(r):
             try:
                 if r.status == 200 and r.headers.get("content-type", "").startswith("image/"):
-                    capt[r.url] = await r.body()
+                    b = await r.body()
+                    if len(b) >= MIN_BYTES: capt[r.url] = b
             except Exception: pass
         page.on("response", lambda r: tareas.append(asyncio.create_task(on_resp(r))))
         try:
@@ -167,44 +169,55 @@ async def procesar(ctx, nombre, url, sem, informe):
             informe.append(f"FALLO página [{nombre}] {url}: {str(e)[:120]}"); await page.close(); return []
         try: await page.wait_for_load_state("networkidle", timeout=8000)
         except Exception: pass
-        await cerrar_avisos(page); await scroll_total(page)
-        try: await page.wait_for_load_state("networkidle", timeout=5000)
-        except Exception: pass
-        dom = await page.evaluate(JS_DOM, SEL_MAIN)
-        principales = {clave(d["u"]) for d in dom if d["main"]}
-        # --- abrir ventanas emergentes (lightbox) ---
-        n_img = await page.locator("img").count()
-        for idx in range(min(n_img, 60)):
-            try:
-                loc = page.locator("img").nth(idx)
-                box = await loc.bounding_box()
-                if not box or box["width"] < 80 or box["height"] < 80: continue
-                antes = set(capt)
-                await loc.scroll_into_view_if_needed(timeout=1500)
-                await loc.click(timeout=1500, force=True)
-                await page.wait_for_timeout(900)
-                for t in list(tareas): 
-                    try: await asyncio.wait_for(t, 3)
-                    except Exception: pass
-                nuevas = set(capt) - antes
-                lightbox |= {clave(u) for u in nuevas}
-                if page.url.split("#")[0] != url.split("#")[0]:
-                    await page.goto(url, wait_until="domcontentloaded", timeout=30000); await page.wait_for_timeout(800)
-                else:
-                    await cerrar_overlay(page); await page.wait_for_timeout(300)
-            except Exception: 
-                try: await cerrar_overlay(page)
-                except Exception: pass
-        # --- pedir versiones grandes y enlaces directos ---
-        for d in dom:
-            for u in {d["u"], ampliar(d["u"])}:
-                if u in capt or BASURA.search(u): continue
+        dom, principales = [], set()
+        limite = time.monotonic() + PRESUPUESTO_CLICS
+        async def fases():
+            nonlocal dom, principales
+            await cerrar_avisos(page); await scroll_total(page)
+            try: await page.wait_for_load_state("networkidle", timeout=5000)
+            except Exception: pass
+            dom = await page.evaluate(JS_DOM, SEL_MAIN)
+            principales = {clave(d["u"]) for d in dom if d["main"]}
+            # --- abrir ventanas emergentes (lightbox) ---
+            n_img = await page.locator("img").count()
+            for idx in range(min(n_img, 60)):
+                if time.monotonic() > limite: break
                 try:
-                    r = await ctx.request.get(u, timeout=30000, headers={"Referer": url})
-                    if r.ok and r.headers.get("content-type", "").startswith("image/"):
-                        capt[u] = await r.body()
-                        if d["tag"] == "link": lightbox.add(clave(u))
-                except Exception: pass
+                    loc = page.locator("img").nth(idx)
+                    box = await loc.bounding_box()
+                    if not box or box["width"] < 80 or box["height"] < 80: continue
+                    antes = set(capt)
+                    await loc.scroll_into_view_if_needed(timeout=1500)
+                    await loc.click(timeout=1500, force=True)
+                    await page.wait_for_timeout(900)
+                    for t in list(tareas): 
+                        try: await asyncio.wait_for(t, 3)
+                        except Exception: pass
+                    nuevas = set(capt) - antes
+                    lightbox |= {clave(u) for u in nuevas}
+                    if page.url.split("#")[0] != url.split("#")[0]:
+                        await page.goto(url, wait_until="domcontentloaded", timeout=30000); await page.wait_for_timeout(800)
+                    else:
+                        await cerrar_overlay(page); await page.wait_for_timeout(300)
+                except Exception: 
+                    try: await cerrar_overlay(page)
+                    except Exception: pass
+            # --- pedir versiones grandes y enlaces directos ---
+            for d in dom[:200]:
+                for u in {d["u"], ampliar(d["u"])}:
+                    if u in capt or BASURA.search(u): continue
+                    try:
+                        r = await ctx.request.get(u, timeout=30000, headers={"Referer": url})
+                        if r.ok and r.headers.get("content-type", "").startswith("image/"):
+                            capt[u] = await r.body()
+                            if d["tag"] == "link": lightbox.add(clave(u))
+                    except Exception: pass
+        try:
+            await fases()
+        except BaseException as e:          # conservar lo ya capturado aunque algo falle o se agote el tiempo
+            informe.append(f"AVISO [{nombre}] incompleta: {type(e).__name__}")
+        try: await asyncio.gather(*tareas, return_exceptions=True)
+        except BaseException: pass
         await asyncio.gather(*tareas, return_exceptions=True)
         await page.close()
         # --- filtrar ---
@@ -230,10 +243,6 @@ async def procesar(ctx, nombre, url, sem, informe):
 def actualizar_catalogo(nuevos):
     try: items = json.load(open(JSON_PATH, encoding="utf-8"))
     except Exception: items = []
-    for i in items:                       # borrar descargas automáticas anteriores (incluidas las irrelevantes)
-        if i.get("origen") == "auto" and i.get("archivo"):
-            try: os.remove(os.path.join(OUT, i["archivo"]))
-            except Exception: pass
     items = [i for i in items if i.get("origen") != "auto"]
     for n in nuevos:
         items.append({
@@ -254,6 +263,12 @@ def actualizar_catalogo(nuevos):
 
 async def main():
     os.makedirs(OUT, exist_ok=True); os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
+    try:                                   # ANTES de descargar: borrar las descargas automáticas anteriores
+        for i in json.load(open(JSON_PATH, encoding="utf-8")):
+            if i.get("origen") == "auto" and i.get("archivo"):
+                try: os.remove(os.path.join(OUT, i["archivo"]))
+                except Exception: pass
+    except Exception: pass
     informe, todas = [], []
     async with async_playwright() as p:
         br = await p.chromium.launch()
