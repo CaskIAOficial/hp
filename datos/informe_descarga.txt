@@ -1,0 +1,229 @@
+OK    gac-galeria-01.jpg (342 KB) <- https://lh3.googleusercontent.com/ci/AL18g_Snh66tIr5xL3H2Sno28V9wW82s11mP1FFsN3R-JxY68M-bm7HyV0bO3ZH3YBfKBqgMr6PbWQ=s0
+SIN IMÁGENES [gac-exposicion] https://artsandculture.google.com/exhibit/the-journey/ZgLSRWBwxUB9Ig
+OK    gac-cap17-01.jpg (251 KB) <- https://lh3.googleusercontent.com/ci/AL18g_TT_geHj3Shi5Kijj_bHAuImxc9lrd07Bh9HUYBjpxKZ5VKPikWQxRITh1YyH5baJXXsoWrTzE=s0
+OK    gac-hogwarts-01.jpg (190 KB) <- https://lh3.googleusercontent.com/ci/AL18g_QzcZfI3pOMHS7ko4byNbLofi8ZjXqehYzevLqZj1ZttEXz5-_Jht8tOkjPrI1ntS_2XTVikQ=s0
+OK    gac-sinopsis-01.jpg (244 KB) <- https://lh3.googleusercontent.com/ci/AL18g_TqPGP7xHRIQRyn27wK624jE7Fxx733ZzH8gkKiUShiKRsrnl1rPJwkpdNs3PCEpynHM1x-ud3N=s0
+OK    gac-lista-hipogrifos-01.jpg (219 KB) <- https://lh3.googleusercontent.com/ci/AL18g_TVIGgN_qQS2SUoYoZQ81PDg347sTZPyBn_pqwiNIu7H7WlQ6ubxBSt_IEH2EV-Y9pu0zJASg=s0
+FALLO página [leaky-pottermore] https://www.the-leaky-cauldron.org/2016/08/25/original-j-k-rowling-sketches-on-pottermore/: 521 Server Error: <none> for url: https://www.the-leaky-cauldron.org/2016/08/25/original-j-k-rowling-sketches-on-pottermore/
+FALLO página [leaky-azkaban-wright] https://www.the-leaky-cauldron.org/?p=7851: 521 Server Error: <none> for url: https://www.the-leaky-cauldron.org/?p=7851
+SIN IMÁGENES [movieweb-snape] https://movieweb.com/harry-potter-snape-sketches-original-jk-rowling/
+OK    creativebloq-bocetos-01.jpg (71 KB) <- https://cdn.mos.cms.futurecdn.net/vM55XiMSmiY3XFbsuWn8z8-551-80.jpg
+OK    creativebloq-bocetos-02.jpg (511 KB) <- https://cdn.mos.cms.futurecdn.net/flexiimages/fhii3s5odm1784723980.jpg
+OK    creativebloq-bocetos-03.jpg (25 KB) <- https://cdn.mos.cms.futurecdn.net/flexiimages/h0mke6edxz1770889266-400-80.jpg
+OK    creativebloq-bocetos-04.png (184 KB) <- https://cdn.mos.cms.futurecdn.net/flexiimages/ekwcrvq1321784815505.png
+OK    creativebloq-bocetos-05.jpg (23 KB) <- https://cdn.mos.cms.futurecdn.net/A7Ew2QZJptBcKSSDrHU24f-900-80.jpg
+OK    creativebloq-bocetos-06.jpg (59 KB) <- https://cdn.mos.cms.futurecdn.net/xCg7gh8KbkLYdfjjYCGG2f-900-80.jpg
+OK    creativebloq-bocetos-07.jpg (80 KB) <- https://cdn.mos.cms.futurecdn.net/GEtNhCuiC9oaekHgyDUzRa-900-80.jpg
+OK    creativebloq-bocetos-08.png (117 KB) <- https://cdn.mos.cms.futurecdn.net/asUpNNPWhLdt58DaNMYX3m-900-80.png
+OK    creativebloq-bocetos-09.jpg (87 KB) <- https://cdn.mos.cms.futurecdn.net/hiU7urWydPSsRUvaCFZwy8-620-80.jpg
+OK    creativebloq-bocetos-10.jpg (34 KB) <- https://cdn.mos.cms.futurecdn.net/vEvA6zNZuV6BZGKJMuesH6-250-80.jpg
+OK    creativebloq-bocetos-11.jpg (30 KB) <- https://cdn.mos.cms.futurecdn.net/uYbHmpsoNmTupCDfCUNyni-250-80.jpg
+OK    creativebloq-bocetos-12.jpg (26 KB) <- https://cdn.mos.cms.futurecdn.net/weCmeCfbhwd4eYY8UKqjkD-250-80.jpg
+OK    creativebloq-bocetos-13.jpg (45 KB) <- https://cdn.mos.cms.futurecdn.net/ZKa2tcezc7npcyzwZXVYy8-620-80.jpg
+OK    creativebloq-bocetos-14.jpg (61 KB) <- https://cdn.mos.cms.futurecdn.net/KhjbgGBvJwTty2uwb9DZy8-620-80.jpg
+OK    creativebloq-bocetos-15.jpg (49 KB) <- https://cdn.mos.cms.futurecdn.net/RicqbqfNhfRt9XdyF8SQy8-620-80.jpg
+OK    creativebloq-bocetos-16.jpg (95 KB) <- https://cdn.mos.cms.futurecdn.net/vEvA6zNZuV6BZGKJMuesH6-840-80.jpg
+OK    creativebloq-bocetos-17.jpg (65 KB) <- https://cdn.mos.cms.futurecdn.net/uYbHmpsoNmTupCDfCUNyni-840-80.jpg
+OK    creativebloq-bocetos-18.jpg (71 KB) <- https://cdn.mos.cms.futurecdn.net/weCmeCfbhwd4eYY8UKqjkD-840-80.jpg
+OK    creativebloq-bocetos-19.jpg (71 KB) <- https://cdn.mos.cms.futurecdn.net/sVYB4MoNbuhKrhihfwLTmi-840-80.jpg
+OK    creativebloq-bocetos-20.jpg (47 KB) <- https://cdn.mos.cms.futurecdn.net/c3gUKgNBguK99orCyKdBGm-840-80.jpg
+OK    creativebloq-bocetos-21.jpg (92 KB) <- https://cdn.mos.cms.futurecdn.net/8yvtRiNs9m2RP8tTyRv7bX-840-80.jpg
+OK    creativebloq-bocetos-22.jpg (153 KB) <- https://cdn.mos.cms.futurecdn.net/QSS47Dnf6GqSNKai88SJ6b-840-80.jpg
+OK    creativebloq-bocetos-23.jpg (85 KB) <- https://cdn.mos.cms.futurecdn.net/xktifUf3cuTEFf7HGjnVhX-840-80.jpg
+OK    creativebloq-bocetos-24.jpg (108 KB) <- https://cdn.mos.cms.futurecdn.net/mq6jJGusVZmzNXyVUgNLiM-840-80.jpg
+OK    creativebloq-bocetos-25.jpg (59 KB) <- https://cdn.mos.cms.futurecdn.net/Yz55Uu89QTbeZXiUsMJbMX-840-80.jpg
+OK    creativebloq-bocetos-26.jpg (103 KB) <- https://cdn.mos.cms.futurecdn.net/7NT468amdnmhUCjdbgYixV-840-80.jpg
+OK    creativebloq-bocetos-27.jpg (146 KB) <- https://cdn.mos.cms.futurecdn.net/wrSBji8eTJDzgVFvGP7jxM-840-80.jpg
+OK    creativebloq-bocetos-28.jpg (68 KB) <- https://cdn.mos.cms.futurecdn.net/TwCd5w4q4d2NE6vCmzSmh6-840-80.jpg
+OK    creativebloq-bocetos-29.png (609 KB) <- https://cdn.mos.cms.futurecdn.net/2Sx2umgaE7bnrpByhwmbhM-840-80.png
+OK    creativebloq-bocetos-30.jpg (79 KB) <- https://cdn.mos.cms.futurecdn.net/hBTsT4ombrF3uUGqNgKb57-840-80.jpg
+OK    creativebloq-bocetos-31.jpg (66 KB) <- https://cdn.mos.cms.futurecdn.net/fXTwvGaoeDYLMVsYurK77W-840-80.jpg
+OK    creativebloq-bocetos-32.jpg (29 KB) <- https://cdn.mos.cms.futurecdn.net/YqYbAi2ev3Z4nszsJb4jrh-840-80.jpg
+OK    creativebloq-bocetos-33.jpg (116 KB) <- https://cdn.mos.cms.futurecdn.net/TwCd5w4q4d2NE6vCmzSmh6-1280-80.jpg
+SIN IMÁGENES [marysue-bocetos] https://themarysue.com/?p=379120
+SIN IMÁGENES [laughingsquid-plan] https://laughingsquid.com/plot-outline-harry-potter-order-of-phoenix/
+SIN IMÁGENES [flashbak] https://flashbak.com/jkrowling-sketches-harry-potter-plot-spreadsheet-400969/
+SIN IMÁGENES [openculture-plan] https://www.openculture.com/2014/07/j-k-rowling-plotted-harry-potter-with-a-hand-drawn-spreadsheet.html
+OK    electricliterature-plan-01.jpg (210 KB) <- https://cdn-images-1.medium.com/max/1024/0*MqblQoPX2X2y-KoK.jpg
+OK    electricliterature-plan-02.png (79 KB) <- https://cdn-images-1.medium.com/max/700/1*IR3Edzj3yQ2AgDogs9L22g@2x.png
+OK    slashfilm-plan-01.jpg (122 KB) <- https://www.slashfilm.com/img/gallery/potd-jk-rowlings-plot-spreadsheet-for-harry-potter-and-the-order-of-the-phoenix/intro-import.jpg
+OK    slashfilm-plan-02.jpg (645 KB) <- https://www.slashfilm.com/wp/wp-content/images/jkrowlingpage.jpg
+FALLO página [mugglenet-anotado] https://mugglenet.com/2013/05/j-k-rowling-shares-handwritten-annotations-in-harry-potter-and-the-philosopher-s-stone/: 404 Client Error: Not Found for url: https://mugglenet.com/2013/05/j-k-rowling-shares-handwritten-annotations-in-harry-potter-and-the-philosopher-s-stone/
+SIN IMÁGENES [lexicon-weasley] https://www.hp-lexicon.org/?p=13181
+OK    lexicon-black-01.jpg (502 KB) <- http://i.imgur.com/GbPzUmg.jpg
+SIN IMÁGENES [lexicon-scrapbook] https://www.hp-lexicon.org/source/other-canon/jkr/jkr-com-scrapbook/
+FALLO página [fanlore-weasley] https://fanlore.org/wiki/Weasley: 403 Client Error: Forbidden for url: https://fanlore.org/wiki/Weasley
+FALLO página [fandom-imagenes-jkr] https://harrypotter.fandom.com/wiki/Category:Images_by_J._K._Rowling: 403 Client Error: Forbidden for url: https://harrypotter.fandom.com/wiki/Category:Images_by_J._K._Rowling
+FALLO página [fandom-subastas] https://harrypotter.fandom.com/wiki/J._K._Rowling's_contributions_to_charity_auctions: 403 Client Error: Forbidden for url: https://harrypotter.fandom.com/wiki/J._K._Rowling's_contributions_to_charity_auctions
+SIN IMÁGENES [rowlinglibrary-guia] https://www.therowlinglibrary.com/j-k-rowling/official-website/guide/
+FALLO página [accio-quote] https://www.accio-quote.org/jkrwebsite.html: HTTPSConnectionPool(host='www.accio-quote.org', port=443): Max retries exceeded with url: /jkrwebsite.html (Caused by NameResolutionError("HTTPSConnection(host='www.accio-quote.org', port=443): Failed to resolve 'www.accio-quote.org' ([Errno -3] Temporary failure in name resolution)"))
+SIN IMÁGENES [rowlingindex] https://www.rowlingindex.org/work/ext1dw/
+FALLO página [artnet-25] https://news.artnet.com/art-world/jk-rowling-drawings-philosophers-stone-2115585: 403 Client Error: Forbidden for url: https://news.artnet.com/art-world/jk-rowling-drawings-philosophers-stone-2115585
+SIN IMÁGENES [rowlinglibrary-25] https://www.therowlinglibrary.com/?p=7628
+OK    sothebys-beedle-01.jpg (2166 KB) <- https://sothebys-md.brightspotcdn.com/dims4/default/4f75844/2147483647/strip/true/crop/2000x2000+0+0/resize/4096x4096!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2Fwebnative%2Fimages%2F97%2F37%2Fca47e895405ab79ebef4cdeb49d4%2Fn11496-cybln-t1-02.jpg
+OK    sothebys-beedle-02.jpg (3010 KB) <- https://sothebys-md.brightspotcdn.com/dims4/default/b284eee/2147483647/strip/false/crop/8736x11648+0+0/resize/4096x5461!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F61%2F72%2F9bd8171f43288654ea92dabf22b1%2Fn12405-dpbw6-t1-09.jpg
+OK    sothebys-beedle-03.jpg (2323 KB) <- https://sothebys-md.brightspotcdn.com/dims4/default/c8ce715/2147483647/strip/false/crop/6933x6933+0+0/resize/4096x4096!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F5a%2F22%2F15c314cc4dc6be745e64cfdf280d%2Fl26165-dbx2c-t1-02.jpg
+OK    sothebys-beedle-04.jpg (3048 KB) <- https://sothebys-md.brightspotcdn.com/dims4/default/0699524/2147483647/strip/false/crop/7223x8844+0+0/resize/4096x5015!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F6b%2Fc5%2F33a7395d4ec4b550dfd4547c9044%2Fn12405-dpbw4-t1-04.jpg
+OK    sothebys-beedle-05.jpg (2273 KB) <- https://sothebys-md.brightspotcdn.com/dims4/default/cb2439e/2147483647/strip/false/crop/1554x992+0+0/resize/4096x2615!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F21%2F87%2Fbd9a74124f038384d7b953bf6516%2Fpicture9.jpg
+OK    sothebys-beedle-06.jpg (2086 KB) <- https://sothebys-md.brightspotcdn.com/dims4/default/c8b0b93/2147483647/strip/false/crop/1920x1308+0+0/resize/4096x2790!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F7a%2F14%2Fb21c50f44db8afa15aa89fba2635%2F414eeff7-b665-4548-94bd-898cdbb8e1f3.jpg
+OK    sothebys-beedle-07.jpg (1767 KB) <- https://sothebys-md.brightspotcdn.com/dims4/default/836f987/2147483647/strip/false/crop/8688x5792+0+0/resize/4096x2731!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F44%2Fcb%2F541edfc542358dbc51fb3270e163%2Fnelson-dnw2z-t1-07.jpg
+OK    sothebys-articulo-01.png (380 KB) <- https://sothebys-com.brightspotcdn.com/62/71/322ba38b4b8ebfbfa1fe6f3e4ad2/screenshot-2025-03-24-131721.png
+OK    sothebys-articulo-02.png (288 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/ae2c84e/2147483647/strip/true/crop/1080x765+0+0/resize/684x485!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fdotcom%2F2d%2F08%2F29f0abec467e86a21c0fb1159092%2Fscreenshot-2024-09-27-at-2.02.45%25E2%2580%25AFPM.png
+OK    sothebys-articulo-03.png (982 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/1b341ac/2147483647/strip/true/crop/783x1120+0+0/resize/684x978!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fdotcom%2F53%2F04%2F7209eee843a5bea477da796f22e7%2Fscreenshot-2024-09-27-at-2.02.49%25E2%2580%25AFPM.png
+OK    sothebys-articulo-04.jpg (111 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/3137e3a/2147483647/strip/true/crop/1012x1266+0+0/resize/684x856!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fdotcom%2F9b%2Ffb%2F91040a794cf58397b81d953df78d%2Ftales-of-beedle-the-bard-harry-potter.jpg
+OK    sothebys-articulo-05.png (876 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/728a43b/2147483647/strip/true/crop/646x1036+0+0/resize/684x1097!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fdotcom%2F6b%2Fa5%2F0579bca64507968ffb608e7b77c7%2Fscreenshot-2024-09-27-at-2.14.29%25E2%2580%25AFPM.png
+OK    sothebys-articulo-06.jpg (124 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/bf7b98e/2147483647/strip/true/crop/801x1295+0+0/resize/684x1106!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fdotcom%2F8b%2Fdb%2F8df16f984fe38d9b0d0663436dc0%2Fharry-potter-philosophers-stone-annotated-copy.jpg
+OK    sothebys-articulo-07.jpg (95 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/643441d/2147483647/strip/true/crop/538x703+0+0/resize/684x894!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fdotcom%2F91%2Fae%2F7fa7a9aa4655bbf2a898aeee44cd%2Fscreenshot-2025-12-04-123735.jpg
+OK    sothebys-articulo-08.jpg (28 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/1828b0a/2147483647/strip/true/crop/800x800+0+0/resize/330x330!/quality/90/?url=https%3A%2F%2Fsothebys-md.brightspotcdn.com%2Fdims4%2Fdefault%2F862d4b4%2F2147483647%2Fstrip%2Ffalse%2Fcrop%2F800x800%252B0%252B0%2Fresize%2F800x800%21%2Fquality%2F90%2F%3Furl%3Dhttp%253A%252F%252Fsothebys-brightspot.s3.amazonaws.com%252Fmedia-desk%252F8f%252Fde%252F4ee4db8345aca6d7b1a3de4dceb0%252Fjane-austen-c-e-brockthe-novels-of-jane-austen-the-series-of-english-idylls-4ed4.jpg
+OK    sothebys-articulo-09.jpg (22 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/437caa7/2147483647/strip/true/crop/800x800+0+0/resize/330x330!/quality/90/?url=https%3A%2F%2Fsothebys-md.brightspotcdn.com%2Fdims4%2Fdefault%2F7e9e545%2F2147483647%2Fstrip%2Ffalse%2Fcrop%2F578x578%252B0%252B0%2Fresize%2F800x800%21%2Fquality%2F90%2F%3Furl%3Dhttp%253A%252F%252Fsothebys-brightspot.s3.amazonaws.com%252Fmedia-desk%252F4b%252F70%252F0df6c6694ed6bfd5b428d9825063%252Fkingsley-amis-nlucky-jim-5a65-book.jpg
+OK    sothebys-articulo-10.jpg (35 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/dc43355/2147483647/strip/true/crop/800x800+0+0/resize/330x330!/quality/90/?url=https%3A%2F%2Fsothebys-md.brightspotcdn.com%2Fdims4%2Fdefault%2Fff41c2c%2F2147483647%2Fstrip%2Ffalse%2Fcrop%2F1512x1512%252B0%252B0%2Fresize%2F800x800%21%2Fquality%2F90%2F%3Furl%3Dhttp%253A%252F%252Fsothebys-brightspot.s3.amazonaws.com%252Fmedia-desk%252F3a%252F3f%252F709fc6c146da9645a378fa9cf957%252Ff-scott-fitzgerald-tender-is-the-night-first-edition-book.jpg
+OK    sothebys-articulo-11.jpg (27 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/ff81ce5/2147483647/strip/true/crop/800x800+0+0/resize/330x330!/quality/90/?url=https%3A%2F%2Fsothebys-md.brightspotcdn.com%2Fdims4%2Fdefault%2Ffb439f3%2F2147483647%2Fstrip%2Ffalse%2Fcrop%2F1506x1506%252B0%252B0%2Fresize%2F800x800%21%2Fquality%2F90%2F%3Furl%3Dhttp%253A%252F%252Fsothebys-brightspot.s3.amazonaws.com%252Fmedia-desk%252F15%252F1c%252Faabfdbe04bd4a959c1294f00d267%252F1410525-9.jpg
+OK    sothebys-articulo-12.jpg (25 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/9933a8c/2147483647/strip/true/crop/800x800+0+0/resize/330x330!/quality/90/?url=https%3A%2F%2Fsothebys-md.brightspotcdn.com%2Fdims4%2Fdefault%2F2673814%2F2147483647%2Fstrip%2Ffalse%2Fcrop%2F1345x1345%252B0%252B0%2Fresize%2F800x800%21%2Fquality%2F90%2F%3Furl%3Dhttp%253A%252F%252Fsothebys-brightspot.s3.amazonaws.com%252Fmedia-desk%252Fd5%252F80%252F7d002aa14c4a8891c365e5b2f7b7%252F1416881-2.jpg
+OK    sothebys-articulo-13.jpg (20 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/f5f9137/2147483647/strip/true/crop/800x800+0+0/resize/330x330!/quality/90/?url=https%3A%2F%2Fsothebys-md.brightspotcdn.com%2Fdims4%2Fdefault%2Fb3cdc6e%2F2147483647%2Fstrip%2Ffalse%2Fcrop%2F1464x1464%252B0%252B0%2Fresize%2F800x800%21%2Fquality%2F90%2F%3Furl%3Dhttp%253A%252F%252Fsothebys-brightspot.s3.amazonaws.com%252Fmedia-desk%252F14%252F17%252Fdf43816b4b9eb91593e59d9b9624%252F1413691-5.jpg
+OK    sothebys-articulo-14.jpg (27 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/3bee9e5/2147483647/strip/true/crop/800x800+0+0/resize/330x330!/quality/90/?url=https%3A%2F%2Fsothebys-md.brightspotcdn.com%2Fdims4%2Fdefault%2F6038e80%2F2147483647%2Fstrip%2Ffalse%2Fcrop%2F965x965%252B0%252B0%2Fresize%2F800x800%21%2Fquality%2F90%2F%3Furl%3Dhttp%253A%252F%252Fsothebys-brightspot.s3.amazonaws.com%252Fmedia-desk%252F4e%252F38%252F6ab439f4439596d2d325291ffd28%252Fappointment-in-samarra-or-first-edition-accompanied-by-binding-plate-e54d.jpg
+OK    sothebys-articulo-15.jpg (26 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/93f8354/2147483647/strip/true/crop/800x800+0+0/resize/330x330!/quality/90/?url=https%3A%2F%2Fsothebys-md.brightspotcdn.com%2Fdims4%2Fdefault%2F70be28f%2F2147483647%2Fstrip%2Ffalse%2Fcrop%2F907x907%252B0%252B0%2Fresize%2F800x800%21%2Fquality%2F90%2F%3Furl%3Dhttp%253A%252F%252Fsothebys-brightspot.s3.amazonaws.com%252Fmedia-desk%252Fe7%252F52%252F8183993245e9b85966529c24575b%252Fpoems-of-wordsworth-finely-bound-limited-edition-a94e.jpg
+OK    sothebys-articulo-16.jpg (52 KB) <- https://sothebys-com.brightspotcdn.com/dims4/default/16a0966/2147483647/strip/true/crop/1338x980+134+0/resize/710x520!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fdotcom%2F6e%2F08%2Fb1016ad84960a8dd81af127af324%2Fimage.jpg
+FALLO página [artnet-beedle] https://news.artnet.com/market/harry-potter-book-sells-for-467000-783746: 403 Client Error: Forbidden for url: https://news.artnet.com/market/harry-potter-book-sells-for-467000-783746
+OK    electricliterature-beedle-01.jpg (83 KB) <- https://cdn-images-1.medium.com/max/683/1*ZRRLJAIiQnRzY45PoBrD5A.jpeg
+SIN IMÁGENES [bookriot-prologo] https://bookriot.com/someone-stole-a-32100-handwritten-harry-potter-prequel
+OK    dawn-prologo-01.jpg (61 KB) <- https://i.dawn.com/large/2017/05/59159c9abeca2.jpg
+OK    dawn-prologo-02.jpg (139 KB) <- https://i.dawn.com/primary/2017/05/59159c9abeca2.jpg
+OK    dawn-prologo-03.jpg (73 KB) <- https://i.dawn.com/large/2016/04/570b85e7428b4.jpg
+OK    dawn-prologo-04.jpg (86 KB) <- https://i.dawn.com/large/2015/10/562a20f9e9305.jpg
+OK    dawn-prologo-05.jpg (47 KB) <- https://i.dawn.com/large/2015/12/56780ce5f28c7.jpg
+OK    dawn-prologo-06.webp (44 KB) <- https://i.dawn.com/large/2026/11/07132942af5d0a0.webp
+OK    dawn-prologo-07.webp (23 KB) <- https://i.dawn.com/large/2026/11/071534220188494.webp
+OK    dawn-prologo-08.webp (59 KB) <- https://i.dawn.com/large/2026/11/07110811f8b059d.webp
+OK    dawn-prologo-09.webp (49 KB) <- https://i.dawn.com/large/2026/11/06120927abd4502.webp
+OK    dawn-prologo-10.jpg (249 KB) <- https://i.dawn.com/large/2026/11/061415551e714a3.jpg
+SIN IMÁGENES [malaymail-silla] https://www.malaymail.com/news/read/2016/04/05/chair-jk-rowling-used-to-write-harry-potter-books-to-sell-at-auction/1093885
+FALLO página [businessinsider-black] https://www.businessinsider.in/heres-the-one-thing-that-stumped-harry-potter-filmmakers/articleshow/53328951.cms: HTTPSConnectionPool(host='www.businessinsider.in', port=443): Max retries exceeded with url: /heres-the-one-thing-that-stumped-harry-potter-filmmakers/articleshow/53328951.cms (Caused by NameResolutionError("HTTPSConnection(host='www.businessinsider.in', port=443): Failed to resolve 'www.businessinsider.in' ([Errno -2] Name or service not known)"))
+OK    cbc-anotado-01.jpg (26 KB) <- https://i.cbc.ca/ais/1.1594022,1379058917000/full/max/0/default.jpg?im=Crop%2Crect%3D%280%2C0%2C1180%2C663%29%3BResize%3D620
+SIN IMÁGENES [gulfnews-anotado] https://gulfnews.com/entertainment/harry-potter-book-with-author-notes-sold-for-228000-1.1186770
+OK    eluniverso-anotado-01.jpg (36 KB) <- https://www.eluniverso.com/resizer/v2/ZEHLKDBQPZHRJNGZYZMMSFQRTQ.jpg?auth=eb46f4d68620acb12dbda5b3a6f5db11e746bb1213123a540b3e2fa6bd9fd216&quality=75&smart=true
+OK    eluniverso-anotado-02.jpg (907 KB) <- https://www.eluniverso.com/resizer/v2/TCTFOSYUWNFX7A5HGJZ75UXGTY.jpg?auth=086d79c83b8f168e1ed40aa8546947e9484975c1abbadb1d808079042ab5a170&quality=75&smart=true
+OK    eluniverso-anotado-03.jpg (163 KB) <- https://www.eluniverso.com/resizer/v2/57T46J5IMZGSVCCYHZSZF73MRQ.jpg?auth=a212d220b1ebe8f2bd68ce64676f8533804f5f58f176e8c23a949596bdea61bb&quality=75&smart=true
+OK    eluniverso-anotado-04.jpg (195 KB) <- https://www.eluniverso.com/resizer/v2/NNWE35K42FAXZCFKFZK224G3GM.jpg?auth=3e98a1fc97982bc32842cd9ef9ac3ec5220b4422f2616568279146329aff9554&quality=75&smart=true
+OK    eluniverso-anotado-05.jpg (765 KB) <- https://www.eluniverso.com/resizer/v2/JHG4FG7QJBGFLJIF6FK4EHK7NI.png?auth=da1c7c2eba92a170ba02220d5a81dfb575d7cb8d91df82897e10b7ae5ddbf781&quality=75&smart=true
+OK    eluniverso-anotado-06.jpg (1360 KB) <- https://www.eluniverso.com/resizer/v2/IVN7ZJNXIFFNHELWFWXMULGIRE.jpg?auth=0fa0691d814abd77be3fab08f1b1326f4b6348d507844fa7a6059e59b1157d93&quality=75&smart=true
+OK    eluniverso-anotado-07.jpg (139 KB) <- https://www.eluniverso.com/resizer/v2/ORCWYESY6ZC4PDQE3SIV44Q7MI.png?auth=356dd4bf3bbd8efad19bdea288b76e840ea8b522572ddbeb9a0b1d8f6e21d9c0&quality=75&smart=true
+OK    eluniverso-anotado-08.jpg (1409 KB) <- https://www.eluniverso.com/resizer/v2/IYIGJ3DS7ZBOTI2VQ6WW2JJHAM.jpg?auth=48db48d534ec170bcc4da8339ef953bce6d20f7d14119cadccd077322d9f881d&quality=75&smart=true
+OK    eluniverso-anotado-09.jpg (76 KB) <- https://www.eluniverso.com/resizer/v2/4PCRXRMDF5HVVHY65452JEQOSY.jpg?auth=3d19c3cfcfc6db742260b1499680da8d7437636e7e7e4351bbf9723902478296&quality=75&smart=true
+OK    eluniverso-anotado-10.jpg (333 KB) <- https://www.eluniverso.com/resizer/v2/CSJKQJLMMBFEDJCX4DYW6BGQ3Q.jpg?auth=eea0bcd8fd54db3abb380d5f2447947ed300a37460805c9b921c099b0aa2adcc&quality=75&smart=true
+OK    eluniverso-anotado-11.jpg (251 KB) <- https://www.eluniverso.com/resizer/v2/Q5PTM2TE7BEEJIJJKRSYJO3C4U.jpg?auth=e15ef09b39c10001a7e9ea48a6f99a741d1148b8a28ae48cec25fe5268f9bcc6&quality=75&smart=true
+OK    eluniverso-anotado-12.jpg (934 KB) <- https://www.eluniverso.com/resizer/v2/URYTBIHJQRG3BJ7TTGPYZ4T4U4.jpeg?auth=f7eb989e8a7dc90f48c886268ac64cc55d4ff1e4bf012349dd2bedd4ee8f2598&quality=75&smart=true
+OK    eluniverso-anotado-13.jpg (436 KB) <- https://www.eluniverso.com/resizer/v2/VBOLHNHVGRALXG7PQ4CKN3FN6Y.jpg?auth=d39ff6426a3a9222b3b5feeb72a631e72a365b8c94d414234bda57b1782eaf17&quality=75&smart=true
+OK    eluniverso-anotado-14.jpg (127 KB) <- https://www.eluniverso.com/resizer/v2/YGPDCPXCCJHVLFFG4RGEIE6XCM.jfif?auth=daade7aa2b3d0cd68b6f7e50fab454d28b55cce5f330c2847a9749b9efc935a9&quality=75&smart=true
+OK    eluniverso-anotado-15.jpg (2652 KB) <- https://www.eluniverso.com/resizer/v2/RIMIXUGBGBDQ5ICSYHXIZMURMQ.jpg?auth=a6abe7bc44c00b21da0e2fc2c1a6a3a590fb387ef5d224d6863ceb0e101c9beb&quality=75&smart=true
+OK    eluniverso-anotado-16.jpg (615 KB) <- https://www.eluniverso.com/resizer/v2/2AN37HIBEBDUNJYVU5KBDOAIBU.jpg?auth=d3109dfb878d1a42a2c2b76b4f01ca0931e42bb47dfc8233a35c1f0695316904&quality=75&smart=true
+OK    eldinamo-anotado-01.jpg (97 KB) <- https://media.eldinamo.cl/2026/11/A_UNO_1777953-1.jpg
+OK    eldinamo-anotado-02.jpg (132 KB) <- https://media.eldinamo.cl/2026/11/A_UNO_1518616-1.jpg
+OK    eldinamo-anotado-03.png (785 KB) <- https://media.eldinamo.cl/2026/11/Santiago-Pena-1.png
+OK    eldinamo-anotado-04.jpg (60 KB) <- https://media.eldinamo.cl/2026/11/Captura-de-pantalla_8-11-2026_102023_lahora.cl_.jpg
+OK    eldinamo-anotado-05.jpg (74 KB) <- https://media.eldinamo.cl/2026/11/A_UNO_1778808-1.jpg
+OK    eldinamo-anotado-06.png (1026 KB) <- https://media.eldinamo.cl/2026/11/PDG1858.png
+OK    eldinamo-anotado-07.png (847 KB) <- https://media.eldinamo.cl/2026/09/Cristian-Pizarro.png
+OK    eldinamo-anotado-08.jpg (137 KB) <- https://media.eldinamo.cl/2026/11/Corpoton-2-1.jpg
+FALLO página [sundaypost-bl] https://www.sundaypost.com/fp/harry-potter-exhibition-go-show-british-library: 403 Client Error: Forbidden for url: https://www.sundaypost.com/fp/harry-potter-exhibition-go-show-british-library
+OK    irishnews-bl-01.jpg (189 KB) <- https://www.irishnews.com/resizer/v2/4XOHGNOHN5NXPHYD7YVQOBG5IA.jpg?smart=true&auth=c7c11ea0a7c3d7328da67202bcd065bd2380fc8a405fe32f594a0085e81da5d7
+OK    irishnews-bl-02.jpg (34 KB) <- https://www.irishnews.com/resizer/v2/F22H6MMD3VPJBMOUO6DKARZEMI.jpg?auth=c7a198b11766da670d95186522ea5e36a38e7e6e08c1ceca7a100b8656dfe454
+OK    irishnews-bl-03.jpg (207 KB) <- https://www.irishnews.com/resizer/v2/OYYBNYBKYRANNEB2BR6Q53SQK4.jpg?smart=true&auth=71281372062729b3ee27dee0a12e8a68a0822af13712f7a26a6469e2005c708f
+OK    irishnews-bl-04.jpg (201 KB) <- https://www.irishnews.com/resizer/v2/OYTRY5QNFVHDZNASH2STQ2X6SA.jpg?smart=true&auth=2fb3d70211669c27bedac47a97e7c28421fd009b5ae66ce6c2d1d2a3a21f55b9
+OK    irishnews-bl-05.jpg (102 KB) <- https://www.irishnews.com/resizer/v2/NV6VDN2EL5L5NIV6XG3YIHLY6Y.jpg?auth=37ab5af854d89a7ec432d301315b68ddce059b9dc85123247611fff4f6bd25c7
+OK    irishnews-bl-06.jpg (140 KB) <- https://www.irishnews.com/resizer/v2/A4TI7UYPIZCXTECZ37RWD6CBDM.jpg?smart=true&auth=b14a14e2a6b4d2ac419c4316e263f7d30a5bf0d7d0667bc2c2c2b583c4f80651
+OK    irishnews-bl-07.jpg (988 KB) <- https://www.irishnews.com/resizer/v2/KENWH3XEPNOCXPL5BTUPPTAB6E.jpg?smart=true&auth=46cc8d4fec5fd6c6c788924ac2af970d07b192af8c9d886df990ae3afc2a1f89
+OK    irishnews-bl-08.jpg (764 KB) <- https://www.irishnews.com/resizer/v2/UNRLN5F6RZLMXCTGTDBRAMT4UM.jpg?smart=true&auth=eeedb1d2f5254ee552b097dc59d317b9c3f57dc72252fd30398a7069429a7a79
+OK    irishnews-bl-09.jpg (3039 KB) <- https://www.irishnews.com/resizer/v2/QUEOYZ6OAZLWLCFELGCNFENIYM.jpg?smart=true&auth=96eb1a9e887f6fc69e769aa190a2413a54839cc95b328807ec348699c8acdf32
+OK    irishnews-bl-10.jpg (655 KB) <- https://www.irishnews.com/resizer/v2/HTWKMZ7RQFL2PFUB42WG7TNT4M.jpg?smart=true&auth=35a3eb6a6c6ab92f8b6c8dba7c0576553067e425209d6eae70896ffa4ff8f564
+OK    irishnews-bl-11.jpg (540 KB) <- https://www.irishnews.com/resizer/v2/PDVXOKKHXBCHTKDSEMDVP27AUI.jpeg?focal=2176%2C1378&auth=8a4ec3849de4373e80ad7280d0a24bbf9a81d13b7e1af9534f7fcb6ee33d0598
+OK    irishnews-bl-12.jpg (184 KB) <- https://www.irishnews.com/resizer/v2/JHGUFB5TZNAKRI7NHLCWOY3PB4.jpg?smart=true&auth=8cbcf60a6c77828bbd85db5c3c33cb4c23d58d80414a097d126a5c0d41fa4b44
+OK    irishnews-bl-13.jpg (293 KB) <- https://www.irishnews.com/resizer/v2/MSQZQLYTKRH5HOMUXOX4YTRCJE.jpg?smart=true&auth=78c41d7a57737581e83b2d9076c2f94088fbd523476cd45bf3c5f217d2e0f723
+OK    irishnews-bl-14.jpg (974 KB) <- https://www.irishnews.com/resizer/v2/MEALX5UPVNEFLISOEAMSTVESBM.jpg?smart=true&auth=31357ee954559e0c8d4a6878b2ecd782ec29232e5eba34e8ec55b2e4ccb60754
+OK    irishnews-bl-15.jpg (180 KB) <- https://www.irishnews.com/resizer/v2/ZY7O6EAHL5OFHHRG3DHQKMEXAY.jpg?smart=true&auth=70ff08f8a6fccb2ad5d8ef6d4d8abaffb604f43186d4abef079674a34998948b
+OK    irishnews-bl-16.jpg (1217 KB) <- https://www.irishnews.com/resizer/v2/MIE5YKVTMZOX3L5V7EUXITMGHA.jpg?focal=2188%2C1641&auth=574c4a6dfbff2bca22b4a3771b26e44fa1bb2bedffc4cc5ff5b6321a94bffe0d
+OK    irishnews-bl-17.jpg (594 KB) <- https://www.irishnews.com/resizer/v2/CQILMSXWPNJQFGJJCTUGUE2CLE.jpg?focal=1115%2C1128&auth=53a9e4e7b717d5c6b50f107bc99b9fea9ecca5494561886bf00c399b83d07007
+OK    irishnews-bl-18.jpg (1793 KB) <- https://www.irishnews.com/resizer/v2/3D4OAMBZKBPU3H7UHMCZTCWMLY.jpg?focal=2623%2C2187&auth=92e9a950e201db07d9570f4b2d8c6a55247791cef007a0a59454d821e1b68c12
+OK    irishnews-bl-19.jpg (86 KB) <- https://www.irishnews.com/resizer/v2/4HA7TA35YFFG5HKBEKWPJEVXAI.jpg?focal=545%2C293&auth=8f7c98bd8a462edd7f7d4a20890b2fdd1e57827648d4e47b232b673aac617709
+SIN IMÁGENES [phillyvoice-ny] https://phillyvoice.com/harry-potter-exhibit-new-york-jk-rowling-manuscripts
+OK    scholastic-ny-01.png (29 KB) <- https://www.scholastic.com/content/dam/enterprise/asset.jpg/globalNav/book-clubs-image.png
+OK    scholastic-ny-02.png (39 KB) <- https://www.scholastic.com/content/dam/enterprise/asset.jpg/globalNav/tso-image.png
+OK    scholastic-ny-03.png (33 KB) <- https://www.scholastic.com/content/dam/enterprise/asset.jpg/globalNav/sso-image.png
+SIN IMÁGENES [gulfnews-20aniv] https://gulfnews.com/entertainment/harry-potter-exhibit-marks-20th-anniversary-of-first-book-1.2109307
+SIN IMÁGENES [wiki-history-of-magic] https://en.wikipedia.org/wiki/Harry_Potter:_A_History_of_Magic
+OK    wiki-beedle-01.jpg (27 KB) <- https://upload.wikimedia.org/wikipedia/en/8/82/Tales_of_Beedle_the_Bard.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail_unscaled
+OK    rowling-my-story-01.png (1346 KB) <- https://stories.jkrowling.com/wp-content/themes/ed-theme-2025/assets/img/mystory/Paper_Pen_Weight_My_Story_Page@2x.png
+OK    rowling-my-story-02.png (478 KB) <- https://stories.jkrowling.com/wp-content/themes/ed-theme-2025/assets/img/mystory/Glasses_Poloroid_My_Story_Page@2x.png
+OK    rowling-my-story-03.png (87 KB) <- https://stories.jkrowling.com/wp-content/themes/ed-theme-2025/assets/img/mystory/Bracelet_My_Story_Page@2x.png
+OK    rowling-my-story-04.png (208 KB) <- https://stories.jkrowling.com/wp-content/themes/ed-theme-2025/assets/img/mystory/Dog_Decoration_My_Story_Page@2x.png
+OK    rowling-my-story-05.png (1540 KB) <- https://stories.jkrowling.com/wp-content/themes/ed-theme-2025/assets/img/mystory/Group 491@2x.png
+OK    wizardingworld-cursed-01.jpg (255 KB) <- https://contentful.harrypotter.com/usf1vwtuqyxm/4HizHTeb1S0W22GkskYcOE/d6bab0bacfcd10c7e4e57cfed9a75e58/HP_MOS_DPS_FINAL.jpg?q=75&fm=jpg
+OK    wizardingworld-cursed-02.jpg (59 KB) <- https://contentful.harrypotter.com/usf1vwtuqyxm/5bLP9iQ1Xi0eiOksWMCgmG/dcb023724e956524933823a3ce09c5a9/CC_JKR_handwriting_Cursed_Child.jpg?q=75&fm=jpg
+OK    wizardingworld-cursed-03.jpg (29 KB) <- https://contentful.harrypotter.com/usf1vwtuqyxm/2BWoSbn7ackQg4SkYSso2U/940c2dd6c8584824e07956e0efe04fb4/CC_JKR_handwriting_The_Absences.jpg?q=75&fm=jpg
+OK    wizardingworld-cursed-04.jpg (24 KB) <- https://contentful.harrypotter.com/usf1vwtuqyxm/6ktewo0k2AmQAISOE44oqW/9b2a7d9890c50cf85f81a0986a29a019/CC_JKR_handwriting_Still_Going_Strong.jpg?q=75&fm=jpg
+OK    wizardingworld-cursed-05.jpg (28 KB) <- https://contentful.harrypotter.com/usf1vwtuqyxm/4JRTA5Jd1SAACw6KWI00se/4495335c9aac57128413d3271b803623/CC_JKR_handwriting_Rose.jpg?q=75&fm=jpg
+OK    wizardingworld-cursed-06.jpg (48 KB) <- https://contentful.harrypotter.com/usf1vwtuqyxm/7wOkZDNYHeqgwUywUwI8SU/4940e7581afa7c8b514f2ce78d283fa3/CC_JKR_handwriting_Harry_Looking_Suitably_Burdened.jpg?q=75&fm=jpg
+OK    wizardingworld-cursed-07.jpg (26 KB) <- https://contentful.harrypotter.com/usf1vwtuqyxm/1TmKuBQrRWmckaI6WWsM4g/c42f72fd47b04f415f7545acfe5bbdc9/CC_JKR_handwriting_Albus.jpg?q=75&fm=jpg
+OK    wizardingworld-cursed-08.jpg (48 KB) <- https://contentful.harrypotter.com/usf1vwtuqyxm/uVlOm4FFGS0cQk0kgWsY0/0282ace82f96b896eddb4d7534017e7b/CC_JKR_handwriting_It_s_All_Here_Isn_t_It.jpg?q=75&fm=jpg
+OK    wizardingworld-cursed-09.jpg (45 KB) <- https://contentful.harrypotter.com/usf1vwtuqyxm/5O0nxzvDlmaM0a0OiykAiS/85985a55e5c3cf8f25f9e47a90dc91e3/CC_JKR_handwriting_Loving_Draco.jpg?q=75&fm=jpg
+OK    wizardingworld-cursed-10.jpg (58 KB) <- https://contentful.harrypotter.com/usf1vwtuqyxm/3Fp5VAkV9YAeSqOwm06cGm/4f5d12efbf95d1b23380539cd9407911/CC_JKR_handwriting_wings.jpg?q=75&fm=jpg
+OK    extra-01-01.jpg (168 KB) <- https://cdn.mos.cms.futurecdn.net/h2uwFdKLbwWKY6Y4fsz4a4.jpg
+OK    extra-01-02.jpg (74 KB) <- https://cdn.mos.cms.futurecdn.net/h2uwFdKLbwWKY6Y4fsz4a4-1200-80.jpg
+OK    extra-01-03.png (196 KB) <- https://cdn.mos.cms.futurecdn.net/flexiimages/f1re5gvkj81768839724.png
+OK    extra-01-04.png (317 KB) <- https://cdn.mos.cms.futurecdn.net/flexiimages/p47qegqe0n1769156215-400-80.png
+OK    extra-01-05.jpg (48 KB) <- https://cdn.mos.cms.futurecdn.net/Q9APHoFb5kP4DsZjFqEhkW-1200-80.jpg
+OK    extra-01-06.jpg (57 KB) <- https://cdn.mos.cms.futurecdn.net/iMPCqdp3NmFRYoqcs6zWBX-1200-80.jpg
+OK    extra-01-07.jpg (60 KB) <- https://cdn.mos.cms.futurecdn.net/qdzkgmBq6cYxqoS9xxBvtW-1200-80.jpg
+OK    extra-01-08.jpg (50 KB) <- https://cdn.mos.cms.futurecdn.net/j2hbUaAyc56AH6xXZnsxUX-1200-80.jpg
+OK    extra-01-09.jpg (82 KB) <- https://cdn.mos.cms.futurecdn.net/8wZYLgZM4YLc84nr5wzWpX-1200-80.jpg
+OK    extra-01-10.jpg (104 KB) <- https://cdn.mos.cms.futurecdn.net/mzVuFLhgWvQ88ZcQKPz9sX-1200-80.jpg
+OK    extra-01-11.jpg (72 KB) <- https://cdn.mos.cms.futurecdn.net/Q9APHoFb5kP4DsZjFqEhkW-1600-80.jpg
+OK    extra-01-12.jpg (86 KB) <- https://cdn.mos.cms.futurecdn.net/iMPCqdp3NmFRYoqcs6zWBX-1600-80.jpg
+OK    extra-01-13.jpg (92 KB) <- https://cdn.mos.cms.futurecdn.net/qdzkgmBq6cYxqoS9xxBvtW-1600-80.jpg
+OK    extra-01-14.jpg (75 KB) <- https://cdn.mos.cms.futurecdn.net/j2hbUaAyc56AH6xXZnsxUX-1600-80.jpg
+OK    extra-01-15.jpg (125 KB) <- https://cdn.mos.cms.futurecdn.net/8wZYLgZM4YLc84nr5wzWpX-1600-80.jpg
+OK    extra-01-16.jpg (156 KB) <- https://cdn.mos.cms.futurecdn.net/mzVuFLhgWvQ88ZcQKPz9sX-1600-80.jpg
+OK    extra-01-17.png (30 KB) <- https://cdn.mos.cms.futurecdn.net/aaee200770535d5cd1d75f670542f45b-140-80.jpg
+OK    extra-01-18.jpg (33 KB) <- https://cdn.mos.cms.futurecdn.net/vWNpxr5ktFWn5P34nvqQta-840-80.jpg
+OK    extra-01-19.jpg (29 KB) <- https://cdn.mos.cms.futurecdn.net/H2G9rW33VpryzWCXfV3U6P-840-80.jpg
+OK    extra-01-20.jpg (64 KB) <- https://cdn.mos.cms.futurecdn.net/a9hQ8bcPLVfPdLwtQigeYG-840-80.jpg
+OK    extra-01-21.jpg (38 KB) <- https://cdn.mos.cms.futurecdn.net/3Y2dAw4rFVuRo54tCyLGWC-840-80.jpg
+OK    extra-01-22.jpg (89 KB) <- https://cdn.mos.cms.futurecdn.net/XfRUgevvmLDaEpbdWEXH9a-840-80.jpg
+OK    extra-01-23.jpg (74 KB) <- https://cdn.mos.cms.futurecdn.net/pbHZ8RoGuETcxEk8E62YBD-840-80.jpeg
+OK    extra-01-24.jpg (40 KB) <- https://cdn.mos.cms.futurecdn.net/FZorhuFvgDziijUpYjBKY8-840-80.jpg
+OK    extra-01-25.jpg (51 KB) <- https://cdn.mos.cms.futurecdn.net/pD4wCuvPcxXKntXi3wcWBZ-840-80.jpg
+OK    extra-01-26.jpg (72 KB) <- https://cdn.mos.cms.futurecdn.net/Azw4wRc2dczMkKiXT7e7ob-840-80.jpg
+OK    extra-01-27.jpg (42 KB) <- https://cdn.mos.cms.futurecdn.net/8jdwBqJxh7r8GHwBaYfURG-840-80.jpg
+OK    extra-01-28.jpg (35 KB) <- https://cdn.mos.cms.futurecdn.net/sNZ3FeUDNrUmc9FK7uvbmK-840-80.jpg
+OK    extra-01-29.jpg (48 KB) <- https://cdn.mos.cms.futurecdn.net/EAQzBo9modRJo6QTCizUb8-840-80.jpg
+OK    extra-01-30.jpg (40 KB) <- https://cdn.mos.cms.futurecdn.net/e75izgrRhxYSxQhhEh62GE-840-80.jpg
+OK    extra-01-31.jpg (70 KB) <- https://cdn.mos.cms.futurecdn.net/MkUBX6Yh9oPTPn2rVHNFxJ-840-80.jpg
+OK    extra-01-32.jpg (112 KB) <- https://cdn.mos.cms.futurecdn.net/DcobhBbuNabTcpHDzforTV-840-80.jpg
+OK    extra-01-33.jpg (97 KB) <- https://cdn.mos.cms.futurecdn.net/BUm2ZnvQ2scEsFuDdbuUzk-840-80.jpg
+OK    extra-01-34.jpg (51 KB) <- https://cdn.mos.cms.futurecdn.net/BgXa4HNPsmD2f4Ld99fpLh-840-80.jpg
+OK    extra-01-35.jpg (98 KB) <- https://cdn.mos.cms.futurecdn.net/hH6Fn5kUuz4UtnEDeBgCfc-840-80.jpg
+OK    extra-01-36.jpg (72 KB) <- https://cdn.mos.cms.futurecdn.net/e75izgrRhxYSxQhhEh62GE-1280-80.jpg
+OK    extra-01-37.jpg (106 KB) <- https://cdn.mos.cms.futurecdn.net/Q9APHoFb5kP4DsZjFqEhkW.jpg
+OK    extra-01-38.jpg (131 KB) <- https://cdn.mos.cms.futurecdn.net/iMPCqdp3NmFRYoqcs6zWBX.jpg
+OK    extra-01-39.jpg (137 KB) <- https://cdn.mos.cms.futurecdn.net/qdzkgmBq6cYxqoS9xxBvtW.jpg
+OK    extra-01-40.jpg (117 KB) <- https://cdn.mos.cms.futurecdn.net/j2hbUaAyc56AH6xXZnsxUX.jpg
+OK    extra-01-41.jpg (191 KB) <- https://cdn.mos.cms.futurecdn.net/8wZYLgZM4YLc84nr5wzWpX.jpg
+OK    extra-01-42.jpg (262 KB) <- https://cdn.mos.cms.futurecdn.net/mzVuFLhgWvQ88ZcQKPz9sX.jpg
+OK    extra-02-01.jpg (61 KB) <- https://www.slashfilm.com/img/gallery/j-k-rowling-harry-potter-sketches/intro-import.jpg
+OK    extra-02-02.jpg (157 KB) <- http://www.slashfilm.com/wp/wp-content/images/harrypotter-rowlingsketch7.jpg
+OK    extra-02-03.jpg (132 KB) <- http://www.slashfilm.com/wp/wp-content/images/harrypotter-rowlingsketch6.jpg
+OK    extra-02-04.jpg (162 KB) <- http://www.slashfilm.com/wp/wp-content/images/harrypotter-rowlingsketch5.jpg
+OK    extra-02-05.jpg (97 KB) <- http://www.slashfilm.com/wp/wp-content/images/harrypotter-rowlingsketch4.jpg
+OK    extra-02-06.jpg (119 KB) <- http://www.slashfilm.com/wp/wp-content/images/harrypotter-rowlingsketch3.jpg
+OK    extra-02-07.jpg (126 KB) <- http://www.slashfilm.com/wp/wp-content/images/harrypotter-rowlingsketch2.jpg
+OK    extra-02-08.jpg (117 KB) <- http://www.slashfilm.com/wp/wp-content/images/harrypotter-rowlingsketch1.jpg
+FALLO imagen https://sb.scorecardresearch.comp?c1=2&c2=17519299&v=3.9.1&cj=1: HTTPSConnectionPool(host='sb.scorecardresearch.comp', port=443): Max retries exceeded with url: /?c1=2&c2=17519299&v=3.9.1&cj=1 (Caused by NameResolutionError("HTTPSConnection(host='sb.scorecardresearch.comp', port=443): Failed to resolve 'sb.scorecardresearch.comp' ([Errno -2] Name or service not known)"))
+SIN IMÁGENES [extra-03] https://www.bustle.com/articles/180177-jk-rowlings-harry-potter-sketches-she-drew-in-the-90s-are-stunning
+OK    extra-04-01.jpg (258 KB) <- https://s2.r29static.com/bin/entry/819/0,675,2000,1050/x,80/1640847/image.jpg
+SIN IMÁGENES [extra-05] https://themarysue.com/harry-potter-sketches
+SIN IMÁGENES [extra-06] https://www.mentalfloss.com/article/85216/pottermore-releases-original-jk-rowling-sketches
+SIN IMÁGENES [extra-07] https://www.mentalfloss.com/entertainment/harry-potter/tiny-handwritten-harry-potter-book-hits-auction-block
+OK    extra-08-01.jpg (120 KB) <- https://th-thumbnailer.cdn-si-edu.com/_vEAvjrHO-vcAVjjISrYydEFsmM=/fit-in/1600x0/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/6b/a1/6ba1e0ec-8ec3-4c12-b7c5-2d3e0e00e948/j_k_rowling_at_the_white_house_2010-04-05_9.jpg
+OK    extra-08-02.jpg (151 KB) <- https://th-thumbnailer.cdn-si-edu.com/QZuT6Nn29857kqWBXt58V0aMM2I=/fit-in/1200x0/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/6b/a1/6ba1e0ec-8ec3-4c12-b7c5-2d3e0e00e948/j_k_rowling_at_the_white_house_2010-04-05_9.jpg
+OK    extra-08-03.webp (96 KB) <- https://th-thumbnailer.cdn-si-edu.com/qGGbeQevUsz_09dwgI5Y-O3RbOM=/1026x684/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/6b/a1/6ba1e0ec-8ec3-4c12-b7c5-2d3e0e00e948/j_k_rowling_at_the_white_house_2010-04-05_9.jpg
+FALLO página [extra-09] https://artistsnetwork.com/art-mediums/drawing/jk-rowling-drawings: 403 Client Error: Forbidden for url: https://artistsnetwork.com/art-mediums/drawing/jk-rowling-drawings
+FALLO página [extra-12] https://www.the-leaky-cauldron.org/2006/08/23/display-of-jkr-handwritten-chapter-to-end-soon: 521 Server Error: <none> for url: https://www.the-leaky-cauldron.org/2006/08/23/display-of-jkr-handwritten-chapter-to-end-soon
