@@ -1,0 +1,1 @@
+Carpeta para imágenes locales autorizadas. En este paquete no se incluyen fotografías originales; consulta README.md, sección «Imágenes faltantes».
