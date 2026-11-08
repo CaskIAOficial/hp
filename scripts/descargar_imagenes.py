@@ -96,6 +96,39 @@ EXT = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp", "image/
 BASURA = re.compile(r"(logo|avatar|icon|sprite|gravatar|badge|banner|ads?/|pixel|tracking|emoji|button|social|\bshare\b)", re.I)
 
 
+def grande(u):
+    """Intenta pedir la versión más grande de CDNs conocidos."""
+    if "googleusercontent.com" in u:
+        return re.sub(r"=[swh]\d.*$", "", u) + "=s0"
+    u = re.sub(r"-\d{2,4}x\d{2,4}(\.(jpe?g|png|webp))", r"\1", u)       # WordPress miniaturas
+    u = re.sub(r"/revision/latest/scale-to-width-down/\d+", "/revision/latest", u)  # Fandom
+    u = re.sub(r"[?&](w|h|width|height|resize|fit)=\d+[^&]*", "", u)
+    return u
+
+def candidatas(url, html):
+    soup = BeautifulSoup(html, "html.parser")
+    urls = [m.get("content") for m in soup.find_all("meta", attrs={"property": re.compile("og:image")}) if m.get("content")]
+    urls += [m.get("content") for m in soup.find_all("meta", attrs={"name": re.compile("twitter:image")}) if m.get("content")]
+    for i in soup.find_all("img"):
+        cand = i.get("data-src") or i.get("data-lazy-src") or i.get("data-orig-file") or i.get("src")
+        ss = i.get("srcset") or i.get("data-srcset")
+        if ss:  # coger el más grande del srcset
+            try:
+                cand = sorted((p.split() for p in ss.split(",")), key=lambda x: int(re.sub(r"\D", "", x[1]) or 0) if len(x) > 1 else 0)[-1][0]
+            except Exception:
+                pass
+        if cand: urls.append(cand)
+    for a in soup.find_all("a", href=True):  # enlaces directos a imágenes
+        if re.search(r"\.(jpe?g|png|webp)(\?|$)", a["href"], re.I): urls.append(a["href"])
+    urls += re.findall(r'https://lh3\.googleusercontent\.com/[A-Za-z0-9_\-=]+', html)
+    out = []
+    for u in urls:
+        u = urljoin(url, u.strip())
+        if u.startswith(("data:", "blob:")) or BASURA.search(u): continue
+        out.append(grande(u))
+    return list(dict.fromkeys(out))
+
+
 def actualizar_catalogo(nuevos):
     """Añade las imágenes descargadas al JSON y al catálogo embebido en index.html."""
     try: items = json.load(open(JSON_PATH, encoding="utf-8"))
