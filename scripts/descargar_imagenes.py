@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Descarga las imágenes de las páginas de la guía de fuentes de Rowling y guarda en imagenes/ y actualiza la galería.
-Uso PERSONAL. Muchas imágenes tienen copyright: no las publiques en un repositorio público.
-Requisitos:  pip install requests beautifulsoup4
-Ejecutar:    python3 descargar_imagenes.py
+"""Descarga AGRESIVA de imágenes con un navegador real (Chromium + Playwright).
+Por cada página: carga, cierra avisos de cookies, hace scroll (lazy-load), abre las imágenes que se
+amplían en ventana emergente (lightbox, con "X"), captura todo lo que carga la red, sigue enlaces
+directos a imágenes y pide la versión grande. Filtra iconos, banners y publicidad.
+Uso PERSONAL. Requisitos: pip install requests beautifulsoup4 playwright pillow && playwright install chromium
 """
-import os, re, sys, json, time, zipfile, hashlib
-from urllib.parse import urljoin, urlparse, unquote
-import requests
-from bs4 import BeautifulSoup
+import os, re, io, json, hashlib, asyncio, sys
+from urllib.parse import urljoin, urlparse
+from playwright.async_api import async_playwright
+from PIL import Image
 
-# nombre_corto -> URL  (todas las páginas de la guía)
 PAGINAS = {
  # Google Arts & Culture (British Library)
  "gac-galeria": "https://artsandculture.google.com/story/lwXRRWBwxUB9Ig",
@@ -88,61 +88,161 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(RAIZ, "imagenes")
 JSON_PATH = os.path.join(RAIZ, "datos", "imagenes.json")
 HTML_PATH = os.path.join(RAIZ, "index.html")
+CONCURRENCIA = int(os.environ.get("CONCURRENCIA", "4"))
+MIN_BYTES = 25_000
+BASURA = re.compile(r"(logo|avatar|icon|sprite|gravatar|emoji|/ads?/|adserver|doubleclick|banner|pixel|tracking|badge|button|social|spinner|placeholder|blank\.)", re.I)
+EXT = {"JPEG": ".jpg", "PNG": ".png", "WEBP": ".webp", "GIF": ".gif"}
+SEL_MAIN = "article, main, [role=main], .entry-content, .post-content, .article-body, .article-content, .post, #content, .content"
 
-UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
-      "Accept-Language": "es,en;q=0.8"}
-MIN_BYTES = 20_000          # descarta iconos / miniaturas diminutas
-EXT = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp", "image/gif": ".gif"}
-BASURA = re.compile(r"(logo|avatar|icon|sprite|gravatar|badge|banner|ads?/|pixel|tracking|emoji|button|social|\bshare\b)", re.I)
+JS_DOM = r"""(selMain) => {
+  const mains=[...document.querySelectorAll(selMain)];
+  const inMain=el=>mains.length===0||mains.some(m=>m.contains(el));
+  const out=[];
+  const add=(u,el,tag)=>{ if(u&&!u.startsWith('data:')) out.push({u:new URL(u,location.href).href,main:inMain(el),tag}); };
+  for(const i of document.images){
+    add(i.currentSrc||i.src,i,'img');
+    for(const at of i.getAttributeNames()){ if(at.startsWith('data-')||at==='srcset'){
+      for(const m of (i.getAttribute(at)||'').matchAll(/(https?:\/\/[^\s,"']+\.(?:jpe?g|png|webp|gif)[^\s,"']*|\/[^\s,"']+\.(?:jpe?g|png|webp|gif)[^\s,"']*)/gi)) add(m[1],i,'attr'); } }
+  }
+  for(const a of document.querySelectorAll('a[href]')){ if(/\.(jpe?g|png|webp|gif)(\?|$)/i.test(a.href)) add(a.href,a,'link'); }
+  for(const el of document.querySelectorAll('[style*=background]')){
+    const m=(el.getAttribute('style')||'').match(/url\(["']?([^"')]+)/); if(m) add(m[1],el,'bg'); }
+  for(const m of document.querySelectorAll('meta[property="og:image"],meta[name="twitter:image"]')) add(m.content,m,'meta');
+  return out;
+}"""
 
+def clave(u):
+    p = urlparse(u)
+    if "googleusercontent.com" in p.netloc:
+        return p.path.split("=")[0]
+    return re.sub(r"-\d{2,4}x\d{2,4}(?=\.\w+$)", "", p.path)
 
-def grande(u):
-    """Intenta pedir la versión más grande de CDNs conocidos."""
+def ampliar(u):
     if "googleusercontent.com" in u:
         return re.sub(r"=[swh]\d.*$", "", u) + "=s0"
-    u = re.sub(r"-\d{2,4}x\d{2,4}(\.(jpe?g|png|webp))", r"\1", u)       # WordPress miniaturas
-    u = re.sub(r"/revision/latest/scale-to-width-down/\d+", "/revision/latest", u)  # Fandom
-    u = re.sub(r"[?&](w|h|width|height|resize|fit)=\d+[^&]*", "", u)
+    u = re.sub(r"-\d{2,4}x\d{2,4}(\.(?:jpe?g|png|webp))", r"\1", u)
+    u = re.sub(r"/revision/latest/scale-to-width-down/\d+", "/revision/latest", u)
     return u
 
-def candidatas(url, html):
-    soup = BeautifulSoup(html, "html.parser")
-    urls = [m.get("content") for m in soup.find_all("meta", attrs={"property": re.compile("og:image")}) if m.get("content")]
-    urls += [m.get("content") for m in soup.find_all("meta", attrs={"name": re.compile("twitter:image")}) if m.get("content")]
-    for i in soup.find_all("img"):
-        cand = i.get("data-src") or i.get("data-lazy-src") or i.get("data-orig-file") or i.get("src")
-        ss = i.get("srcset") or i.get("data-srcset")
-        if ss:  # coger el más grande del srcset
-            try:
-                cand = sorted((p.split() for p in ss.split(",")), key=lambda x: int(re.sub(r"\D", "", x[1]) or 0) if len(x) > 1 else 0)[-1][0]
-            except Exception:
-                pass
-        if cand: urls.append(cand)
-    for a in soup.find_all("a", href=True):  # enlaces directos a imágenes
-        if re.search(r"\.(jpe?g|png|webp)(\?|$)", a["href"], re.I): urls.append(a["href"])
-    urls += re.findall(r'https://lh3\.googleusercontent\.com/[A-Za-z0-9_\-=]+', html)
-    out = []
-    for u in urls:
-        u = urljoin(url, u.strip())
-        if u.startswith(("data:", "blob:")) or BASURA.search(u): continue
-        out.append(grande(u))
-    return list(dict.fromkeys(out))
+async def cerrar_avisos(page):
+    for pat in [r"^(accept|accept all|agree|i agree|allow all|got it|ok|aceptar|aceptar todo|entendido)$"]:
+        try: await page.get_by_role("button", name=re.compile(pat, re.I)).first.click(timeout=1200)
+        except Exception: pass
 
+async def scroll_total(page):
+    ult = -1
+    for _ in range(60):
+        h = await page.evaluate("document.documentElement.scrollHeight")
+        await page.evaluate("window.scrollBy(0, 900)"); await page.wait_for_timeout(350)
+        y = await page.evaluate("window.scrollY + innerHeight")
+        if y >= h and h == ult: break
+        ult = h
+    await page.evaluate("window.scrollTo(0,0)")
+
+async def cerrar_overlay(page):
+    for sel in ['[aria-label*="lose" i]', '[aria-label*="errar" i]', '.mfp-close', '.fancybox-close', '.fancybox__button--close',
+                '.pswp__button--close', '.modal-close', '.lightbox-close', 'button.close', '[class*="close" i]']:
+        try:
+            await page.locator(sel).first.click(timeout=500); return
+        except Exception: pass
+    try: await page.keyboard.press("Escape")
+    except Exception: pass
+    try: await page.mouse.click(4, 4)
+    except Exception: pass
+
+async def procesar(ctx, nombre, url, sem, informe):
+    async with sem:
+        page = await ctx.new_page()
+        capt, tareas, lightbox = {}, [], set()
+        async def on_resp(r):
+            try:
+                if r.status == 200 and r.headers.get("content-type", "").startswith("image/"):
+                    capt[r.url] = await r.body()
+            except Exception: pass
+        page.on("response", lambda r: tareas.append(asyncio.create_task(on_resp(r))))
+        try:
+            await page.goto(url, wait_until="domcontentloaded", timeout=45000)
+        except Exception as e:
+            informe.append(f"FALLO página [{nombre}] {url}: {str(e)[:120]}"); await page.close(); return []
+        try: await page.wait_for_load_state("networkidle", timeout=8000)
+        except Exception: pass
+        await cerrar_avisos(page); await scroll_total(page)
+        try: await page.wait_for_load_state("networkidle", timeout=5000)
+        except Exception: pass
+        dom = await page.evaluate(JS_DOM, SEL_MAIN)
+        principales = {clave(d["u"]) for d in dom if d["main"]}
+        # --- abrir ventanas emergentes (lightbox) ---
+        n_img = await page.locator("img").count()
+        for idx in range(min(n_img, 60)):
+            try:
+                loc = page.locator("img").nth(idx)
+                box = await loc.bounding_box()
+                if not box or box["width"] < 80 or box["height"] < 80: continue
+                antes = set(capt)
+                await loc.scroll_into_view_if_needed(timeout=1500)
+                await loc.click(timeout=1500, force=True)
+                await page.wait_for_timeout(900)
+                for t in list(tareas): 
+                    try: await asyncio.wait_for(t, 3)
+                    except Exception: pass
+                nuevas = set(capt) - antes
+                lightbox |= {clave(u) for u in nuevas}
+                if page.url.split("#")[0] != url.split("#")[0]:
+                    await page.goto(url, wait_until="domcontentloaded", timeout=30000); await page.wait_for_timeout(800)
+                else:
+                    await cerrar_overlay(page); await page.wait_for_timeout(300)
+            except Exception: 
+                try: await cerrar_overlay(page)
+                except Exception: pass
+        # --- pedir versiones grandes y enlaces directos ---
+        for d in dom:
+            for u in {d["u"], ampliar(d["u"])}:
+                if u in capt or BASURA.search(u): continue
+                try:
+                    r = await ctx.request.get(u, timeout=30000, headers={"Referer": url})
+                    if r.ok and r.headers.get("content-type", "").startswith("image/"):
+                        capt[u] = await r.body()
+                        if d["tag"] == "link": lightbox.add(clave(u))
+                except Exception: pass
+        await asyncio.gather(*tareas, return_exceptions=True)
+        await page.close()
+        # --- filtrar ---
+        mejor = {}
+        for u, data in capt.items():
+            if BASURA.search(u) or len(data) < MIN_BYTES: continue
+            try:
+                im = Image.open(io.BytesIO(data)); w, h = im.size; fmt = im.format
+            except Exception: continue
+            if fmt not in EXT or max(w, h) < 500 or min(w, h) < 250 or max(w, h) / max(1, min(w, h)) > 4: continue
+            k = clave(u)
+            relevante = k in principales or k in lightbox or max(w, h) >= 900
+            if not relevante: continue
+            if k not in mejor or len(data) > len(mejor[k][1]):
+                mejor[k] = (u, data, fmt, w, h)
+        res = []
+        for u, data, fmt, w, h in mejor.values():
+            res.append({"pagina": url, "nombre": nombre, "u": u, "data": data, "fmt": fmt, "w": w, "h": h})
+        informe.append(f"[{nombre}] {len(res)} imágenes ({len(capt)} capturadas, {len(lightbox)} de ventanas emergentes)")
+        print(informe[-1], flush=True)
+        return res
 
 def actualizar_catalogo(nuevos):
-    """Añade las imágenes descargadas al JSON y al catálogo embebido en index.html."""
     try: items = json.load(open(JSON_PATH, encoding="utf-8"))
     except Exception: items = []
-    items = [i for i in items if i.get("origen") != "auto"]   # regenerar entradas automáticas
+    for i in items:                       # borrar descargas automáticas anteriores (incluidas las irrelevantes)
+        if i.get("origen") == "auto" and i.get("archivo"):
+            try: os.remove(os.path.join(OUT, i["archivo"]))
+            except Exception: pass
+    items = [i for i in items if i.get("origen") != "auto"]
     for n in nuevos:
         items.append({
             "id": os.path.splitext(n["archivo"])[0], "origen": "auto",
             "titulo": n["titulo"], "categoria": "Imagen descargada",
-            "descripcion": "Imagen obtenida de: " + urlparse(n["pagina"]).netloc,
+            "descripcion": f"{n['w']}×{n['h']} px · de {urlparse(n['pagina']).netloc}",
             "archivo": n["archivo"], "estado": "incluida", "alt": n["titulo"],
             "credito": urlparse(n["pagina"]).netloc,
             "licencia": "Uso personal; derechos de sus titulares (repositorio privado)",
-            "fuente": n["pagina"], "url_imagen": n["url_imagen"]})
+            "fuente": n["pagina"], "url_imagen": n["u"]})
     os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
     json.dump(items, open(JSON_PATH, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     html = open(HTML_PATH, encoding="utf-8").read()
@@ -151,36 +251,32 @@ def actualizar_catalogo(nuevos):
                    lambda m: m.group(1) + blob + m.group(2), html, flags=re.S)
     open(HTML_PATH, "w", encoding="utf-8").write(html2)
 
-def main():
-    os.makedirs(OUT, exist_ok=True)
-    vistos, informe, nuevos = set(), [], []
-    s = requests.Session(); s.headers.update(UA)
-    for nombre, url in PAGINAS.items():
-        try:
-            r = s.get(url, timeout=30); r.raise_for_status()
-        except Exception as e:
-            informe.append(f"FALLO página [{nombre}] {url}: {e}"); print(informe[-1]); continue
-        titulo_pag = (BeautifulSoup(r.text, "html.parser").title or type("t", (), {"string": nombre})).string or nombre
-        n_ok = 0
-        for u in candidatas(url, r.text):
-            try:
-                im = s.get(u, timeout=60, headers={"Referer": url})
-                ct = im.headers.get("content-type", "").split(";")[0]
-                if im.status_code != 200 or ct not in EXT or len(im.content) < MIN_BYTES: continue
-                h = hashlib.sha1(im.content).hexdigest()
-                if h in vistos: continue
-                vistos.add(h); n_ok += 1
-                fn = f"{nombre}-{n_ok:02d}{EXT[ct]}"
-                open(os.path.join(OUT, fn), "wb").write(im.content)
-                nuevos.append({"archivo": fn, "pagina": url, "url_imagen": u, "titulo": f"{titulo_pag.strip()[:90]} ({n_ok})"})
-                informe.append(f"OK    {fn} ({len(im.content)//1024} KB) <- {u}")
-            except Exception as e:
-                informe.append(f"FALLO imagen {u}: {e}")
-        if n_ok == 0: informe.append(f"SIN IMÁGENES [{nombre}] {url}")
-        print(f"[{nombre}] {n_ok} imágenes"); time.sleep(1)
-    open(os.path.join(RAIZ, "datos", "informe_descarga.txt"), "w", encoding="utf-8").write("\n".join(informe))
-    actualizar_catalogo(nuevos)
-    print(f"\nListo: {len(nuevos)} imágenes únicas en imagenes/")
+async def main():
+    os.makedirs(OUT, exist_ok=True); os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
+    informe, todas = [], []
+    async with async_playwright() as p:
+        br = await p.chromium.launch()
+        ctx = await br.new_context(viewport={"width": 1400, "height": 900}, locale="es-ES",
+              user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36")
+        sem = asyncio.Semaphore(CONCURRENCIA)
+        r = await asyncio.gather(*[asyncio.wait_for(procesar(ctx, n, u, sem, informe), 240) for n, u in PAGINAS.items()], return_exceptions=True)
+        for (n, u), x in zip(PAGINAS.items(), r):
+            if isinstance(x, Exception): informe.append(f"FALLO [{n}] {u}: {type(x).__name__}")
+            else: todas += x
+        await br.close()
+    vistos, nuevos = set(), []
+    cont = {}
+    for x in todas:
+        h = hashlib.sha1(x["data"]).hexdigest()
+        if h in vistos: continue
+        vistos.add(h)
+        cont[x["nombre"]] = cont.get(x["nombre"], 0) + 1
+        fn = f"{x['nombre']}-{cont[x['nombre']]:02d}{EXT[x['fmt']]}"
+        open(os.path.join(OUT, fn), "wb").write(x["data"])
+        nuevos.append({**x, "archivo": fn, "titulo": f"{x['nombre']} ({cont[x['nombre']]})"})
+    open(os.path.join(RAIZ, "datos", "informe_descarga.txt"), "w", encoding="utf-8").write("\n".join(informe) + f"\n\nTOTAL: {len(nuevos)} imágenes únicas")
+    actualizar_catalogo([{k: v for k, v in n.items() if k != "data"} for n in nuevos])
+    print(f"\nListo: {len(nuevos)} imágenes únicas en imagenes/", flush=True)
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
