@@ -9,7 +9,7 @@ permissions:
 jobs:
   descargar:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 80
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -17,12 +17,21 @@ jobs:
       - run: pip install requests beautifulsoup4 playwright pillow
       - run: playwright install --with-deps chromium
       - name: Descargar imágenes
+        timeout-minutes: 55
         run: python -u scripts/descargar_imagenes.py
       - name: Crear ZIP con todas las imágenes
         if: always()
         run: |
           rm -f imagenes_rowling.zip
           zip -qr imagenes_rowling.zip imagenes -x "imagenes/LEEME.txt"
+      - name: Copia de seguridad (descargable desde la ejecución)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: imagenes_rowling
+          path: imagenes_rowling.zip
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Guardar resultados en el repositorio
         if: always()
         run: |
