@@ -89,7 +89,7 @@ OUT = os.path.join(RAIZ, "imagenes")
 JSON_PATH = os.path.join(RAIZ, "datos", "imagenes.json")
 HTML_PATH = os.path.join(RAIZ, "index.html")
 TIEMPO_PAGINA = int(os.environ.get("TIEMPO_PAGINA", "420"))
-PRESUPUESTO_CLICS = int(os.environ.get("PRESUPUESTO_CLICS", "150"))
+PRESUPUESTO_CLICS = int(os.environ.get("PRESUPUESTO_CLICS", "45"))
 DETENER = False
 FIN = time.monotonic() + int(os.environ.get("LIMITE_TOTAL", str(48 * 60)))
 CONCURRENCIA = int(os.environ.get("CONCURRENCIA", "4"))
@@ -310,7 +310,8 @@ async def main():
                         informe.append(f"FALLO [{n}] {u}: {type(e).__name__}"); print(informe[-1], flush=True); res = []
                     guardar(res)                 # guardado inmediato, página a página
             await asyncio.gather(*[limitada(n, u) for n, u in PAGINAS.items()])
-            await br.close()
+            try: await asyncio.wait_for(br.close(), 15)
+            except BaseException: pass
 
     tarea = asyncio.ensure_future(trabajo())
     def parar():
@@ -328,4 +329,8 @@ async def main():
     print(f"\nListo: {len(nuevos)} imágenes únicas en imagenes/", flush=True)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    finally:
+        sys.stdout.flush(); sys.stderr.flush()
+        os._exit(0)          # salir YA: cerrar Chromium a veces se queda colgado y bloquea el workflow
