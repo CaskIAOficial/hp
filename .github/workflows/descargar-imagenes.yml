@@ -1,0 +1,28 @@
+name: Descargar imágenes
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/**", ".github/workflows/descargar-imagenes.yml"]
+permissions:
+  contents: write
+jobs:
+  descargar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install requests beautifulsoup4
+      - run: python scripts/descargar_imagenes.py
+      - name: Crear ZIP con todas las imágenes
+        run: |
+          rm -f imagenes_rowling.zip
+          zip -qr imagenes_rowling.zip imagenes -x "imagenes/LEEME.txt"
+      - name: Guardar resultados en el repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A imagenes datos index.html imagenes_rowling.zip
+          git diff --cached --quiet || git commit -m "Imágenes descargadas automáticamente"
+          git push
