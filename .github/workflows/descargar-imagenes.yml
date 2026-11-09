@@ -3,12 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       reutilizar_run:
-        description: "OPCIONAL: ID de una ejecución anterior cuya copia de seguridad (artifact) quieras reutilizar en vez de volver a descargar"
+        description: "OPCIONAL. Vacío = descargar de internet. Un ID de ejecución = reutilizar su copia de seguridad. La palabra regenerar = no descargar nada, solo rehacer galería y miniaturas"
         required: false
         default: ""
-  push:
-    branches: [main]
-    paths: ["scripts/**", ".github/workflows/descargar-imagenes.yml"]
 permissions:
   contents: write
   actions: read
@@ -33,7 +30,7 @@ jobs:
 
       # --- Modo reutilizar: recuperar la copia de seguridad de otra ejecución ---
       - name: Recuperar copia de seguridad
-        if: ${{ github.event.inputs.reutilizar_run != '' }}
+        if: ${{ github.event.inputs.reutilizar_run != '' && github.event.inputs.reutilizar_run != 'regenerar' }}
         uses: actions/download-artifact@v4
         with:
           name: imagenes_rowling
@@ -41,15 +38,19 @@ jobs:
           repository: ${{ github.repository }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: restaurado
-      - name: Descomprimir y reconstruir el catálogo
+      - name: Descomprimir copia de seguridad
+        if: ${{ github.event.inputs.reutilizar_run != '' && github.event.inputs.reutilizar_run != 'regenerar' }}
+        run: unzip -q -o restaurado/imagenes_rowling.zip
+      - name: Reconstruir catálogo desde imagenes/
         if: ${{ github.event.inputs.reutilizar_run != '' }}
-        run: |
-          unzip -q -o restaurado/imagenes_rowling.zip
-          python scripts/descargar_imagenes.py --reconstruir
+        run: python scripts/descargar_imagenes.py --reconstruir
+      - name: Crear miniaturas
+        if: always()
+        run: python scripts/descargar_imagenes.py --miniaturas
 
       # --- Común ---
       - name: Crear ZIP completo (solo copia de seguridad, no se sube al repositorio)
-        if: always()
+        if: ${{ always() && github.event.inputs.reutilizar_run != 'regenerar' }}
         run: |
           rm -f imagenes_rowling.zip
           zip -qr imagenes_rowling.zip imagenes -x "imagenes/LEEME.txt"
@@ -62,7 +63,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
       - name: Crear ZIP en partes (menos de 100 MB cada uno)
-        if: always()
+        if: ${{ always() && github.event.inputs.reutilizar_run != 'regenerar' }}
         run: python scripts/descargar_imagenes.py --zips
       - name: Guardar resultados en el repositorio
         if: always()
@@ -70,6 +71,6 @@ jobs:
           rm -f imagenes_rowling.zip
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add -A imagenes imagenes_zip datos index.html
+          git add -A imagenes imagenes_zip miniaturas datos index.html
           git diff --cached --quiet || git commit -m "Imágenes descargadas automáticamente"
           git push
