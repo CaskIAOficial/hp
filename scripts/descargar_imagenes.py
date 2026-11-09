@@ -328,7 +328,51 @@ async def main():
     guardar([])
     print(f"\nListo: {len(nuevos)} imágenes únicas en imagenes/", flush=True)
 
+
+# ---------------------------------------------------------------- utilidades sin descarga ----
+def reconstruir():
+    """Regenera datos/imagenes.json y la galería de index.html a partir de los archivos que ya hay en imagenes/."""
+    nuevos = []
+    for fn in sorted(os.listdir(OUT)):
+        m = re.match(r"^(.*)-(\d+)\.(jpg|png|webp|gif)$", fn)
+        if not m: continue
+        nombre, n = m.group(1), int(m.group(2))
+        try: w, h = Image.open(os.path.join(OUT, fn)).size
+        except Exception: continue
+        nuevos.append({"archivo": fn, "pagina": PAGINAS.get(nombre, ""), "u": "", "w": w, "h": h, "titulo": f"{nombre} ({n})"})
+    actualizar_catalogo(nuevos)
+    print(f"Catálogo reconstruido: {len(nuevos)} imágenes", flush=True)
+
+def crear_partes():
+    """Empaqueta imagenes/ en varios ZIP de menos de TAM_PARTE_MB (GitHub rechaza archivos de más de 100 MB)."""
+    import zipfile
+    limite = float(os.environ.get("TAM_PARTE_MB", "85")) * 1024 * 1024
+    dest = os.path.join(RAIZ, "imagenes_zip"); os.makedirs(dest, exist_ok=True)
+    for f in os.listdir(dest):
+        if f.endswith(".zip"): os.remove(os.path.join(dest, f))
+    archivos = [f for f in sorted(os.listdir(OUT)) if re.search(r"\.(jpg|png|webp|gif)$", f)]
+    partes, actual, tam = [], [], 0
+    for f in archivos:
+        t = os.path.getsize(os.path.join(OUT, f))
+        if actual and tam + t > limite: partes.append(actual); actual, tam = [], 0
+        actual.append(f); tam += t
+    if actual: partes.append(actual)
+    rutas = []
+    for i, grupo in enumerate(partes, 1):
+        nombre = f"imagenes_rowling_parte{i:02d}.zip"
+        with zipfile.ZipFile(os.path.join(dest, nombre), "w", zipfile.ZIP_STORED) as z:   # los JPG ya van comprimidos
+            for f in grupo: z.write(os.path.join(OUT, f), f)
+        rutas.append("imagenes_zip/" + nombre)
+    json.dump(rutas, open(os.path.join(RAIZ, "datos", "partes_zip.json"), "w", encoding="utf-8"), indent=1)
+    html = open(HTML_PATH, encoding="utf-8").read()
+    html = re.sub(r'(<script type="application/json" id="zipParts">).*?(</script>)',
+                  lambda m: m.group(1) + json.dumps(rutas) + m.group(2), html, flags=re.S)
+    open(HTML_PATH, "w", encoding="utf-8").write(html)
+    print(f"{len(archivos)} imágenes en {len(rutas)} ZIP(s)", flush=True)
+
 if __name__ == "__main__":
+    if "--reconstruir" in sys.argv: reconstruir(); sys.exit(0)
+    if "--zips" in sys.argv: crear_partes(); sys.exit(0)
     try:
         asyncio.run(main())
     finally:
