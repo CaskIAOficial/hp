@@ -1,0 +1,19 @@
+{
+  "name": "El Archivo de Rowling",
+  "short_name": "Archivo Rowling",
+  "description": "Manuscritos y documentos de J.K. Rowling sobre Harry Potter, con audio en español.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0c1018",
+  "theme_color": "#0c1018",
+  "shortcuts": [
+    { "name": "Nuevo (con audio)", "short_name": "Nuevo", "url": "./#nuevo" }
+  ],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
