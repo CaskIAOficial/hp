@@ -11,7 +11,7 @@ Uso (una sola vez, en el PC, con internet):
     python generar_audio.py --voz es-ES-AlvaroNeural     # voz masculina
     python generar_audio.py --comprobar     # solo cuenta textos, no genera nada
 
-Crea la carpeta  audio/  (intro.mp3, s01.mp3 … s28.mp3 y lista.json).
+Crea la carpeta  audio/  (intro.mp3, s01.mp3 … s28.mp3, x1.mp3 …, n1.mp3 … y lista.json).
 Sube esa carpeta a GitHub/Vercel junto al index.html. Si lo repites, salta los
 audios que ya existen (usa --forzar para rehacerlos).
 Otras voces en español: es-ES-ElviraNeural (por defecto), es-ES-AlvaroNeural,
@@ -63,8 +63,12 @@ async def main():
     html = Path(a.html).read_text(encoding='utf-8')
     intro, secciones = leer_textos(html)
     trabajos = [('intro', 'intro.mp3', intro)]
-    for i, s in enumerate(secciones, 1):
-        trabajos.append((str(i), 's%02d.mp3' % i, texto_seccion(s)))
+    for s in secciones:
+        # La clave es estable aunque cambie el orden: 'aid' (audios ya hechos: s01…s28)
+        # o 'key' (apartados añadidos después: x1.mp3, n1.mp3…). Así no se pisa ningún audio.
+        clave = str(s.get('aid') or s.get('key'))
+        nombre = ('s%02d.mp3' % int(clave)) if clave.isdigit() else ('%s.mp3' % clave)
+        trabajos.append((clave, nombre, texto_seccion(s)))
     total = sum(len(t) for _, _, t in trabajos)
     print('%d audios, %d caracteres (≈ %d min de audio)' % (len(trabajos), total, total // 900))
     if a.comprobar:
