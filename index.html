@@ -369,6 +369,7 @@ var statusEl = document.getElementById('nv-status'), voiceSel = document.getElem
 var playBtn = document.getElementById('nv-playAll');
 var queue = [], pos = 0, active = false, paused = false, mode = 'all', modeSec = 0, gen = 0, voices = [], watch = null, silent = null, allQ = null, mini = null;
 var KEY = 'nvPos_v2', OLDKEY = 'nvPos_v1', MYKEY = 'nvMy_v1';
+var AU = null, ATR = [], ATRK = [], ak = 0, au = null, isAudio = false, aSwitching = false, lastSave = 0;
 function loadVoices(){
   voices = synth.getVoices().filter(function(v){return v.lang && v.lang.toLowerCase().indexOf('es') === 0;});
   voiceSel.innerHTML = voices.map(function(v,i){return '<option value="'+i+'">'+v.name+' ('+v.lang+')</option>';}).join('') || '<option>Voz por defecto</option>';
@@ -416,10 +417,13 @@ function buildQueue(m, n){
 }
 
 // ---- Posiciones guardadas: una por apartado / texto / «todo» (sobreviven a pausas, bloqueos y recargas) ----
-function keyOf(m, n){ return m === 'my' ? 'my:'+n : m === 'sec' ? 'sec:'+n : 'all'; }
+function useAudioFor(m, n){ if(!AU || m === 'my') return false; if(m === 'sec') return !!AU.sections[n]; return ATR.length > 0; }
+function keyOf(m, n){ return (useAudioFor(m, n) ? 'u' : '') + (m === 'my' ? 'my:'+n : m === 'sec' ? 'sec:'+n : 'all'); }
 function parseKey(k){
-  if(!k) return null; if(k === 'all') return {m:'all', n:0};
-  var a = k.split(':'); return a[0] === 'sec' ? {m:'sec', n:parseInt(a[1],10)} : {m:'my', n:a.slice(1).join(':')};
+  if(!k) return null;
+  var au_ = false; if(k.charAt(0) === 'u'){ au_ = true; k = k.slice(1); }
+  if(k === 'all') return {m:'all', n:0, a:au_};
+  var a = k.split(':'); return a[0] === 'sec' ? {m:'sec', n:parseInt(a[1],10), a:au_} : {m:'my', n:a.slice(1).join(':'), a:au_};
 }
 function store(){
   try{
@@ -433,18 +437,25 @@ function putStore(s){ try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(
 function getPos(m, n){ var v = store().pos[keyOf(m, n)]; return typeof v === 'number' ? v : 0; }
 function savePos(){ var s = store(), k = keyOf(mode, modeSec); s.pos[k] = pos; s.last = k; putStore(s); }
 function clearPos(m, n){ var s = store(), k = keyOf(m, n); delete s.pos[k]; if(s.last === k) s.last = null; putStore(s); }
-function lastTarget(){ var s = store(), t = parseKey(s.last); if(!t) return null; t.i = s.pos[s.last] || 0; return t; }
+function lastTarget(){ var s = store(), t = parseKey(s.last); if(!t) return null; t.i = s.pos[s.last] || 0; if(t.a !== useAudioFor(t.m, t.n)) t.i = 0; return t; }
 function whereText(m, n, i){
   if(m === 'my'){ var me = loadMy().filter(function(x){return x.id === n;})[0]; return me ? 'tu texto «'+me.title+'»' : 'tu texto'; }
+  if(useAudioFor(m, n)){
+    if(m === 'sec') return 'apartado '+n+' «'+SECTIONS[n-1].title+'»';
+    var at = ATR[Math.min(Math.floor(i/1e6), ATR.length-1)];
+    return (at && at.sec) ? 'apartado '+at.sec+' «'+SECTIONS[at.sec-1].title+'»' : 'introducción';
+  }
   var q = buildQueue(m, n), it = q[Math.min(i, q.length-1)];
   return (it && it.sec) ? 'apartado '+it.sec+' «'+SECTIONS[it.sec-1].title+'»' : 'introducción';
 }
 
 // ---- Mini reproductor: aparece dentro del apartado (o texto) que se está escuchando ----
-function elFor(m, n, i){
-  if(m === 'my') return document.getElementById('nv-my-'+n);
-  if(m === 'sec') return document.getElementById('nv-s'+n);
-  var q = getAll(), it = q[Math.min(i, q.length-1)];
+function hostFor(tg){
+  if(tg.m === 'my') return document.getElementById('nv-my-'+tg.n);
+  if(tg.m === 'sec') return document.getElementById('nv-s'+tg.n);
+  var it;
+  if(tg.a){ it = ATR[Math.min(Math.floor(tg.i/1e6), ATR.length-1)]; }
+  else { var q = getAll(); it = q[Math.min(tg.i, q.length-1)]; }
   return (it && it.sec) ? document.getElementById('nv-s'+it.sec) : document.getElementById('nv-intro');
 }
 function ensureMini(){
@@ -453,7 +464,7 @@ function ensureMini(){
   mini.innerHTML = '<span class="nv-mini-lbl"></span><button type="button" class="nv-pri nv-mini-pp"></button><button type="button" class="nv-mini-stop">⏹ Parar</button><button type="button" class="nv-mini-restart">⏮ Desde el principio</button>';
   mini.querySelector('.nv-mini-pp').onclick = function(){
     if(active && !paused){
-      if(synth && (synth.paused || (!synth.speaking && !synth.pending))){ if(synth.paused) synth.resume(); else speakAt(pos); }
+      if(!isAudio && synth && (synth.paused || (!synth.speaking && !synth.pending))){ if(synth.paused) synth.resume(); else speakAt(pos); }
       else pauseReading();
     } else if(active && paused){ resumeReading(); }
     else { var t = lastTarget(); if(t) begin(t.m, t.n, t.i); }
@@ -466,9 +477,9 @@ function ensureMini(){
 }
 function placeMini(){
   var m = ensureMini(), tg = null;
-  if(active) tg = {m:mode, n:modeSec, i:pos};
+  if(active) tg = {m:mode, n:modeSec, i:pos, a:isAudio};
   else { var t = lastTarget(); if(t && t.i > 0) tg = t; }
-  var host = tg ? elFor(tg.m, tg.n, tg.i) : null;
+  var host = tg ? hostFor(tg) : null;
   document.querySelectorAll('#nuevo .nv-has-mini').forEach(function(e){ if(e !== host) e.classList.remove('nv-has-mini'); });
   if(!host){ m.classList.remove('on'); return; }
   host.classList.add('nv-has-mini');
@@ -513,11 +524,12 @@ function keepAliveOn(){
 function keepAliveOff(){ try{ if(silent) silent.pause(); }catch(e){} }
 function setMeta(){
   if(!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
-  var it = queue[pos], t = (it && it.my) ? it.title : (it && it.sec) ? SECTIONS[it.sec-1].title : 'Introducción';
+  var it = isAudio ? ATRK[ak] : queue[pos], t = (it && (it.my || isAudio)) ? (it.title || 'Introducción') : (it && it.sec) ? SECTIONS[it.sec-1].title : 'Introducción';
   try{ navigator.mediaSession.metadata = new MediaMetadata({title:t, artist:'El Archivo de Rowling', album:'Cómo creó Rowling el mundo de Harry Potter'}); }catch(e){}
 }
 function jumpSection(dir){
   if(!active || mode !== 'all') return;
+  if(isAudio){ aplay(Math.max(0, Math.min(ATRK.length-1, ak+dir)), 0); paused = false; refreshUI(); return; }
   var cur = queue[pos] && queue[pos].sec ? queue[pos].sec : 0, target = Math.max(1, Math.min(SECTIONS.length, cur + dir)), i;
   for(i=0;i<queue.length;i++){ if(queue[i].sec === target && queue[i].first){ gen++; synth.cancel(); paused = false; keepAliveOn(); speakAt(i); refreshUI(); return; } }
 }
@@ -529,10 +541,12 @@ if('mediaSession' in navigator){
   setH('stop', function(){ stopReading(); });
   setH('previoustrack', function(){ jumpSection(-1); });
   setH('nexttrack', function(){ jumpSection(1); });
+  setH('seekbackward', function(){ if(isAudio && au && active) au.currentTime = Math.max(0, au.currentTime - 15); });
+  setH('seekforward', function(){ if(isAudio && au && active) au.currentTime = Math.min(au.duration || 1e9, au.currentTime + 15); });
 }
 function nudge(){
   // Si el sistema pausó o cortó la voz (al salir de la app o bloquear), la retoma por la frase actual.
-  if(!active || paused || !synth) return;
+  if(!active || paused || !synth || isAudio) return;
   if(synth.paused){ synth.resume(); }
   if(!synth.speaking && !synth.pending){ speakAt(pos); }
 }
@@ -558,7 +572,9 @@ function speakAt(i){
   synth.speak(u);
 }
 function begin(m, n, from){
+  if(useAudioFor(m, n)){ abegin(m, n, from); return; }
   if(!synth) return;
+  isAudio = false; if(au) au.pause();
   gen++; synth.cancel();
   mode = m; modeSec = n || 0; queue = buildQueue(m, n);
   pos = Math.max(0, Math.min(from || 0, queue.length-1));
@@ -566,18 +582,29 @@ function begin(m, n, from){
   keepAliveOn(); startWatch(); speakAt(pos); refreshUI();
 }
 function pauseReading(){
-  if(!active || paused || !synth) return;
+  if(!active || paused) return;
+  if(isAudio){
+    pos = curVal(); paused = true; au.pause(); savePos();
+    statusEl.textContent = 'En pausa · guardado en '+whereText(mode, modeSec, pos);
+    refreshUI(); return;
+  }
+  if(!synth) return;
   paused = true; gen++; synth.cancel(); savePos(); keepAliveOff();
   statusEl.textContent = 'En pausa · guardado en '+whereText(mode, modeSec, pos);
   refreshUI();
 }
 function resumeReading(){
   if(!active || !paused) return;
+  if(isAudio){
+    paused = false; aSwitching = false; statusEl.textContent = 'Reproduciendo audio…';
+    var pr = au.play(); if(pr && pr.catch) pr.catch(function(){});
+    refreshUI(); return;
+  }
   paused = false; keepAliveOn(); speakAt(pos); refreshUI();
 }
 function stopReading(){
-  if(!synth) return;
-  var was = active; active = false; paused = false; gen++; synth.cancel(); keepAliveOff(); clearMark();
+  var was = active; if(was && isAudio && au){ pos = curVal(); }
+  active = false; paused = false; gen++; if(synth) synth.cancel(); keepAliveOff(); if(au) au.pause(); clearMark();
   if(was){ savePos(); statusEl.textContent = 'Parado · guardado en '+whereText(mode, modeSec, pos); } else { statusEl.textContent = ''; }
   refreshUI();
 }
@@ -589,6 +616,82 @@ function finish(){
 function listenTarget(m, n){
   if(active && mode === m && modeSec === n){ if(paused) resumeReading(); return; }
   begin(m, n, getPos(m, n));
+}
+
+// ---- Audio real (MP3 de la carpeta audio/): suena en segundo plano y con la pantalla bloqueada ----
+function curVal(){ return ak*1e6 + Math.floor(au ? (au.currentTime || 0) : 0); }
+function ensureAu(){
+  if(au) return au;
+  au = new Audio(); au.preload = 'auto';
+  function siguiente(){ if(mode === 'all' && ak+1 < ATRK.length) aplay(ak+1, 0); else afinish(); }
+  au.onended = function(){ if(!active || !isAudio || paused) return; siguiente(); };
+  au.onerror = function(){
+    if(!active || !isAudio || paused) return;
+    paused = true; pos = curVal(); savePos(); refreshUI();
+    statusEl.textContent = 'No se pudo cargar el audio. Revisa la conexión y pulsa «Seguir».';
+  };
+  au.onplaying = function(){ aSwitching = false; };
+  au.onpause = function(){
+    if(aSwitching || !active || !isAudio || paused || au.ended) return;
+    paused = true; pos = curVal(); savePos(); refreshUI();
+    statusEl.textContent = 'En pausa · guardado en '+whereText(mode, modeSec, pos);
+  };
+  au.onplay = function(){ if(aSwitching || !active || !isAudio || !paused) return; paused = false; refreshUI(); };
+  au.ontimeupdate = function(){
+    if(!active || !isAudio) return;
+    var now = Date.now(); if(now - lastSave > 1500){ lastSave = now; pos = curVal(); savePos(); }
+  };
+  return au;
+}
+function aplay(k, t){
+  var tr = ATRK[k]; if(!tr){ afinish(); return; }
+  ensureAu(); ak = k; aSwitching = true;
+  var r = parseFloat(rateSel.value) || 1;
+  au.src = tr.url; au.defaultPlaybackRate = r; au.playbackRate = r;
+  au.onloadedmetadata = function(){ au.onloadedmetadata = null; if(t > 0 && au.duration && t < au.duration - 1){ try{ au.currentTime = t; }catch(e){} } };
+  var pr = au.play();
+  if(pr && pr.catch) pr.catch(function(e){
+    if(e && e.name === 'AbortError') return;
+    if(active && isAudio && !paused){ paused = true; aSwitching = false; refreshUI(); statusEl.textContent = 'Pulsa «Seguir» para reproducir.'; }
+  });
+  pos = k*1e6 + Math.floor(t || 0); lastSave = Date.now(); savePos();
+  clearMark();
+  var el = tr.sec ? document.getElementById('nv-s'+tr.sec) : null;
+  if(el){ el.classList.add('nv-reading'); if(!document.hidden) el.scrollIntoView({behavior:'smooth', block:'center'}); }
+  statusEl.textContent = 'Reproduciendo audio…';
+  setMeta(); placeMini();
+}
+function abegin(m, n, from){
+  gen++; if(synth) synth.cancel(); keepAliveOff();
+  mode = m; modeSec = n || 0; isAudio = true;
+  ATRK = (m === 'sec') ? [{url:'audio/'+AU.sections[n], sec:n, title:SECTIONS[n-1].title}] : ATR;
+  var k = Math.floor((from || 0) / 1e6), t = (from || 0) % 1e6;
+  k = Math.max(0, Math.min(k, ATRK.length-1));
+  active = true; paused = false; aplay(k, t); refreshUI();
+}
+function afinish(){
+  var m = mode, n = modeSec;
+  active = false; paused = false; clearPos(m, n); clearMark();
+  statusEl.textContent = 'Lectura terminada.'; refreshUI();
+}
+rateSel.onchange = function(){ if(isAudio && au){ var r = parseFloat(rateSel.value) || 1; au.defaultPlaybackRate = r; au.playbackRate = r; } };
+function savedStatus(){
+  var t = lastTarget();
+  if(t && t.i > 0){ statusEl.textContent = 'Guardado en '+whereText(t.m, t.n, t.i)+'. Pulsa «Continuar».'; return true; }
+  return false;
+}
+function loadAudioList(){
+  if(!window.fetch) return;
+  fetch('audio/lista.json', {cache:'no-cache'}).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
+    if(!j || !j.sections) return;
+    var list = [];
+    if(j.intro) list.push({url:'audio/'+j.intro, title:'Introducción'});
+    SECTIONS.forEach(function(s, i){ var f = j.sections[i+1]; if(f) list.push({url:'audio/'+f, sec:i+1, title:s.title}); });
+    if(!list.length) return;
+    ATR = list; AU = j;
+    if(!savedStatus() && !active) statusEl.textContent = '🎧 Audio listo: suena también con la pantalla bloqueada.';
+    refreshUI();
+  }).catch(function(){});
 }
 
 // ---- Mis textos ----
@@ -634,9 +737,9 @@ document.querySelectorAll('#nuevo .nv-listen').forEach(function(b){
 });
 (function(){
   renderMy();
-  var t = lastTarget();
-  if(t && t.i > 0 && synth){ statusEl.textContent = 'Guardado en '+whereText(t.m, t.n, t.i)+'. Pulsa «Continuar».'; }
+  savedStatus();
   refreshUI();
+  loadAudioList();
 })();
 // El botón «Nuevo» de la barra abre el panel y se desplaza hasta él.
 var det = document.getElementById('nv-details'), btn = document.getElementById('nvBtn');
