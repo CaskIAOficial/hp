@@ -1,11 +1,17 @@
 name: Descargar imágenes
 on:
   workflow_dispatch:
+    inputs:
+      reutilizar_run:
+        description: "OPCIONAL: ID de una ejecución anterior cuya copia de seguridad (artifact) quieras reutilizar en vez de volver a descargar"
+        required: false
+        default: ""
   push:
     branches: [main]
     paths: ["scripts/**", ".github/workflows/descargar-imagenes.yml"]
 permissions:
   contents: write
+  actions: read
 jobs:
   descargar:
     runs-on: ubuntu-latest
@@ -15,28 +21,55 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install requests beautifulsoup4 playwright pillow
-      - run: playwright install --with-deps chromium
+
+      # --- Modo normal: descargar de internet ---
+      - name: Instalar Chromium
+        if: ${{ github.event.inputs.reutilizar_run == '' }}
+        run: playwright install --with-deps chromium
       - name: Descargar imágenes
+        if: ${{ github.event.inputs.reutilizar_run == '' }}
         timeout-minutes: 55
         run: python -u scripts/descargar_imagenes.py
-      - name: Crear ZIP con todas las imágenes
+
+      # --- Modo reutilizar: recuperar la copia de seguridad de otra ejecución ---
+      - name: Recuperar copia de seguridad
+        if: ${{ github.event.inputs.reutilizar_run != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: imagenes_rowling
+          run-id: ${{ github.event.inputs.reutilizar_run }}
+          repository: ${{ github.repository }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: restaurado
+      - name: Descomprimir y reconstruir el catálogo
+        if: ${{ github.event.inputs.reutilizar_run != '' }}
+        run: |
+          unzip -q -o restaurado/imagenes_rowling.zip
+          python scripts/descargar_imagenes.py --reconstruir
+
+      # --- Común ---
+      - name: Crear ZIP completo (solo copia de seguridad, no se sube al repositorio)
         if: always()
         run: |
           rm -f imagenes_rowling.zip
           zip -qr imagenes_rowling.zip imagenes -x "imagenes/LEEME.txt"
       - name: Copia de seguridad (descargable desde la ejecución)
-        if: always()
+        if: ${{ always() && github.event.inputs.reutilizar_run == '' }}
         uses: actions/upload-artifact@v4
         with:
           name: imagenes_rowling
           path: imagenes_rowling.zip
           if-no-files-found: ignore
           retention-days: 14
+      - name: Crear ZIP en partes (menos de 100 MB cada uno)
+        if: always()
+        run: python scripts/descargar_imagenes.py --zips
       - name: Guardar resultados en el repositorio
         if: always()
         run: |
+          rm -f imagenes_rowling.zip
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add -A imagenes datos index.html imagenes_rowling.zip
+          git add -A imagenes imagenes_zip datos index.html
           git diff --cached --quiet || git commit -m "Imágenes descargadas automáticamente"
           git push
