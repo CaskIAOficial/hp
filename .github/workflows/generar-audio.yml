@@ -1,0 +1,41 @@
+name: Generar audio
+
+# Se ejecuta a mano: pestaña Actions → «Generar audio» → Run workflow.
+# Crea la carpeta audio/ con los MP3 y la sube al repositorio; Vercel la despliega sola.
+on:
+  workflow_dispatch:
+    inputs:
+      voz:
+        description: "Voz (es-ES-ElviraNeural = mujer, es-ES-AlvaroNeural = hombre)"
+        default: "es-ES-ElviraNeural"
+      forzar:
+        description: "Rehacer los audios aunque ya existan"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  audio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar edge-tts
+        run: pip install edge-tts
+
+      - name: Generar los MP3
+        run: python generar_audio.py --voz "${{ inputs.voz }}" ${{ inputs.forzar && '--forzar' || '' }}
+
+      - name: Subir los audios al repositorio
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git add audio
+          git diff --cached --quiet && echo "No hay audios nuevos." || (git commit -m "Audios generados" && git push)
