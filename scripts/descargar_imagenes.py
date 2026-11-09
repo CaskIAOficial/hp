@@ -326,6 +326,8 @@ async def main():
     except BaseException as e:
         informe.append(f"INTERRUMPIDO: {type(e).__name__} (se conserva lo descargado hasta ahora)")
     guardar([])
+    try: crear_miniaturas()
+    except Exception as e: print("miniaturas:", e, flush=True)
     print(f"\nListo: {len(nuevos)} imágenes únicas en imagenes/", flush=True)
 
 
@@ -342,6 +344,23 @@ def reconstruir():
         nuevos.append({"archivo": fn, "pagina": PAGINAS.get(nombre, ""), "u": "", "w": w, "h": h, "titulo": f"{nombre} ({n})"})
     actualizar_catalogo(nuevos)
     print(f"Catálogo reconstruido: {len(nuevos)} imágenes", flush=True)
+
+def crear_miniaturas():
+    """Miniaturas ligeras (miniaturas/*.jpg) para que la galería cargue rápido en el móvil."""
+    dest = os.path.join(RAIZ, "miniaturas"); os.makedirs(dest, exist_ok=True)
+    fuentes = {os.path.splitext(f)[0]: f for f in os.listdir(OUT) if re.search(r"\.(jpg|png|webp|gif)$", f)}
+    for f in os.listdir(dest):                                   # borrar miniaturas huérfanas
+        if os.path.splitext(f)[0] not in fuentes: os.remove(os.path.join(dest, f))
+    n = 0
+    for stem, f in fuentes.items():
+        out = os.path.join(dest, stem + ".jpg")
+        if os.path.exists(out): continue
+        try:
+            im = Image.open(os.path.join(OUT, f)).convert("RGB"); im.thumbnail((480, 480))
+            im.save(out, "JPEG", quality=72, optimize=True); n += 1
+        except Exception as e:
+            print("miniatura fallida", f, e, flush=True)
+    print(f"Miniaturas: {n} nuevas, {len(fuentes)} en total", flush=True)
 
 def crear_partes():
     """Empaqueta imagenes/ en varios ZIP de menos de TAM_PARTE_MB (GitHub rechaza archivos de más de 100 MB)."""
@@ -371,6 +390,7 @@ def crear_partes():
     print(f"{len(archivos)} imágenes en {len(rutas)} ZIP(s)", flush=True)
 
 if __name__ == "__main__":
+    if "--miniaturas" in sys.argv: crear_miniaturas(); sys.exit(0)
     if "--reconstruir" in sys.argv: reconstruir(); sys.exit(0)
     if "--zips" in sys.argv: crear_partes(); sys.exit(0)
     try:
