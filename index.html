@@ -83,6 +83,10 @@ footer{border-top:1px solid var(--line);padding:28px 20px;text-align:center;colo
 #nuevo>details>summary{cursor:default}
 #nuevo input[type=text],#nuevo textarea{width:100%;font:16px/1.5 system-ui,sans-serif;padding:9px 11px;margin:6px 0;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:var(--ink)}
 #nuevo .nv-my-item{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:8px 0}
+#nuevo .nv-mini{display:none;flex:1 1 100%;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0;padding:8px 10px;border:1px solid var(--gold);border-radius:10px;background:#0e1522}
+#nuevo .nv-mini.on{display:flex}
+#nuevo .nv-mini .nv-mini-lbl{font:.85rem system-ui;color:var(--muted);flex:1 1 120px}
+#nuevo .nv-has-mini .nv-listen,#nuevo .nv-has-mini .nv-my-listen{display:none}
 #nuevo .nv-my-item span{flex:1 1 180px;color:#d2d8df}#nuevo .nv-my-item small{color:var(--muted)}
 #nuevo{max-width:1180px;margin:28px auto 0;padding:0 20px}
 #nuevo>details>summary{cursor:pointer;list-style:none;background:linear-gradient(145deg,var(--panel),#111925);border:1px solid var(--gold);border-radius:14px;padding:16px 20px;font:1.25rem/1.25 Georgia,serif;color:#f7e7c2}
@@ -111,9 +115,6 @@ footer{border-top:1px solid var(--line);padding:28px 20px;text-align:center;colo
 <div class="nv-wrap">
 <div class="nv-bar">
 <button type="button" class="nv-pri" id="nv-playAll">▶ Escuchar todo</button>
-<button type="button" id="nv-restart" style="display:none">⏮ Desde el principio</button>
-<button type="button" id="nv-pause">⏸ Pausa</button>
-<button type="button" id="nv-stop">⏹ Parar</button>
 <label>Velocidad <select id="nv-rate"><option>0.8</option><option selected>1</option><option>1.2</option><option>1.5</option></select></label>
 <label>Voz <select id="nv-voice"></select></label>
 <span id="nv-status"></span>
@@ -132,6 +133,7 @@ footer{border-top:1px solid var(--line);padding:28px 20px;text-align:center;colo
 <div id="nv-my-list"></div>
 </div>
 <p class="lead">Este documento reúne, en orden cronológico y en español, lo que se sabe públicamente sobre el proceso creativo de J.K. Rowling: cuándo surgió la idea, cómo planificó los siete libros, qué pasó con cada uno de ellos cómo era su vida mientras escribía y qué contó ella misma en entrevistas, chats y cartas, qué borradores, personajes y escenas descartó y en qué se inspiró. Es un resumen redactado con palabras propias a partir de fuentes públicas (exposición de la British Library, entrevistas de la BBC y de A&amp;E, y artículos de prensa). No contiene los textos originales de Rowling ni traducciones literales de ellos, porque sus manuscritos y borradores tienen derechos de autor. Para leer los originales, consulta los enlaces de fuentes al final de cada apartado.</p>
+<div id="nv-intro"></div>
 <div class="notice" style="margin-bottom:18px">Nota importante: los manuscritos, borradores, esquemas y textos descartados de J.K. Rowling son propiedad suya y están protegidos por derechos de autor, aunque se puedan ver en una exposición o en una página web. Por eso este documento solo recoge hechos y resúmenes propios en español, y no copia ni traduce esos textos. Varias fuentes son de prensa o de aficionados: los datos marcados como de fuente secundaria conviene contrastarlos con las entrevistas originales.</div>
 <h3 style="font:1.2rem Georgia,serif;margin:10px 0">Índice</h3>
 <ol class="nv-toc"><li><a href="#nv-s1">Infancia y juventud (hasta 1990) · Una escritora desde niña</a></li><li><a href="#nv-s2">Junio de 1990 · La idea nace en un tren retrasado</a></li><li><a href="#nv-s3">1990 – 1995 · Cinco años de planificación</a></li><li><a href="#nv-s4">1990 – 1996 · La vida mientras escribía: Mánchester, Oporto y Edimburgo</a></li><li><a href="#nv-s5">1990 – 1995 · Cómo inventó su mundo: Quidditch, muggles y el Sombrero Seleccionador</a></li><li><a href="#nv-s6">1993 – 1995 · De Edimburgo a la sinopsis original</a></li><li><a href="#nv-s7">1993 – 1995 · El primer borrador: Darke&#x27;s Hollow, Gary y los cambios de nombre</a></li><li><a href="#nv-s8">1995 – 1997 · Lo que se quedó fuera de «La piedra filosofal»</a></li><li><a href="#nv-s9">1996 – 1998 · Rechazos, la primera edición y el cambio de título en EE. UU.</a></li><li><a href="#nv-s10">1996 – 1998 · Del agente a la portada: cómo se publicó el primer libro</a></li><li><a href="#nv-s11">1998 · «La cámara secreta»: miedo a no estar a la altura</a></li><li><a href="#nv-s12">1999 · «El prisionero de Azkaban»: los dementores y la depresión</a></li><li><a href="#nv-s13">2000 · Lo que contó en 2000, con el quinto libro en marcha</a></li><li><a href="#nv-s14">2000 · «El cáliz de fuego»: el libro más difícil</a></li><li><a href="#nv-s15">1997 – 2003 · Cartas, entregas y borradores: lo que cuenta la bibliografía de Errington</a></li><li><a href="#nv-s16">2003 · La hoja de cálculo a mano de «La Orden del Fénix»</a></li><li><a href="#nv-s17">2004 · El chat de 2004: Muggle, Quidditch y una hermana que nunca apareció</a></li><li><a href="#nv-s18">2004 – 2005 · «El misterio del príncipe»: dos meses revisando el plan</a></li><li><a href="#nv-s19">2006 – 2007 · «Las reliquias de la Muerte»: el final escrito desde 1990</a></li><li><a href="#nv-s20">11 de enero de 2007 · El final de la serie</a></li><li><a href="#nv-s21">2007 · El epílogo: más detallado al principio y más vago al final</a></li><li><a href="#nv-s22">2013 · Un ejemplar anotado por la propia Rowling</a></li><li><a href="#nv-s23">2017 – 2019 · Las exposiciones y los libros que mostraron los borradores</a></li><li><a href="#nv-s24">1997 – 2003 · Escenas y capítulos descartados</a></li><li><a href="#nv-s25">Transversal (toda la serie) · Voldemort: el nombre, el miedo a la muerte y los Horrocruxes</a></li><li><a href="#nv-s26">Transversal (toda la serie) · En qué se inspiró</a></li><li><a href="#nv-s27">Transversal (toda la serie) · Las pistas que fue dejando durante años</a></li><li><a href="#nv-s28">Transversal (toda la serie) · Lo que dijo después: parejas, Dumbledore y cambios de idea</a></li></ol>
@@ -364,9 +366,9 @@ var SECTIONS = [{"title": "Una escritora desde niña", "era": "Infancia y juvent
 var INTRO = "Este documento reúne, en orden cronológico y en español, lo que se sabe públicamente sobre el proceso creativo de J.K. Rowling: cuándo surgió la idea, cómo planificó los siete libros, qué pasó con cada uno de ellos cómo era su vida mientras escribía y qué contó ella misma en entrevistas, chats y cartas, qué borradores, personajes y escenas descartó y en qué se inspiró. Es un resumen redactado con palabras propias a partir de fuentes públicas (exposición de la British Library, entrevistas de la BBC y de A&E, y artículos de prensa). No contiene los textos originales de Rowling ni traducciones literales de ellos, porque sus manuscritos y borradores tienen derechos de autor. Para leer los originales, consulta los enlaces de fuentes al final de cada apartado.";
 var synth = window.speechSynthesis;
 var statusEl = document.getElementById('nv-status'), voiceSel = document.getElementById('nv-voice'), rateSel = document.getElementById('nv-rate');
-var playBtn = document.getElementById('nv-playAll'), pauseBtn = document.getElementById('nv-pause'), restartBtn = document.getElementById('nv-restart');
-var queue = [], pos = 0, active = false, paused = false, mode = 'all', modeSec = 0, gen = 0, voices = [], watch = null, silent = null;
-var KEY = 'nvPos_v1', MYKEY = 'nvMy_v1';
+var playBtn = document.getElementById('nv-playAll');
+var queue = [], pos = 0, active = false, paused = false, mode = 'all', modeSec = 0, gen = 0, voices = [], watch = null, silent = null, allQ = null, mini = null;
+var KEY = 'nvPos_v2', OLDKEY = 'nvPos_v1', MYKEY = 'nvMy_v1';
 function loadVoices(){
   voices = synth.getVoices().filter(function(v){return v.lang && v.lang.toLowerCase().indexOf('es') === 0;});
   voiceSel.innerHTML = voices.map(function(v,i){return '<option value="'+i+'">'+v.name+' ('+v.lang+')</option>';}).join('') || '<option>Voz por defecto</option>';
@@ -383,6 +385,13 @@ function secItems(n){
   s.paras.forEach(function(p){ chunks(p).forEach(function(c){ first.push(c); }); });
   first.forEach(function(t,i){ items.push({text:t, sec:n, first:i===0}); });
   return items;
+}
+function getAll(){
+  if(!allQ){
+    allQ = chunks(INTRO).map(function(t){return {text:t};});
+    SECTIONS.forEach(function(_,i){ secItems(i+1).forEach(function(x){ allQ.push(x); }); });
+  }
+  return allQ;
 }
 function loadMy(){ try{ var a = JSON.parse(localStorage.getItem(MYKEY)); return Array.isArray(a) ? a : []; }catch(e){ return []; } }
 function saveMy(a){ try{ localStorage.setItem(MYKEY, JSON.stringify(a)); return true; }catch(e){ alert('No se pudo guardar: el almacenamiento del navegador está lleno.'); return false; } }
@@ -403,34 +412,87 @@ function myItems(id){
 function buildQueue(m, n){
   if(m === 'my') return myItems(n);
   if(m === 'sec') return secItems(n);
-  var items = chunks(INTRO).map(function(t){return {text:t};});
-  SECTIONS.forEach(function(_,i){ secItems(i+1).forEach(function(x){items.push(x);}); });
-  return items;
+  return getAll();
 }
 
-// ---- Posición guardada (sobrevive a pausas, bloqueos de pantalla y recargas) ----
-function readSaved(){ try{ var s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s.i === 'number') return s; }catch(e){} return null; }
-function savePos(){ try{ localStorage.setItem(KEY, JSON.stringify({m:mode, n:modeSec, i:pos})); }catch(e){} }
-function clearSaved(){ try{ localStorage.removeItem(KEY); }catch(e){} }
+// ---- Posiciones guardadas: una por apartado / texto / «todo» (sobreviven a pausas, bloqueos y recargas) ----
+function keyOf(m, n){ return m === 'my' ? 'my:'+n : m === 'sec' ? 'sec:'+n : 'all'; }
+function parseKey(k){
+  if(!k) return null; if(k === 'all') return {m:'all', n:0};
+  var a = k.split(':'); return a[0] === 'sec' ? {m:'sec', n:parseInt(a[1],10)} : {m:'my', n:a.slice(1).join(':')};
+}
+function store(){
+  try{
+    var s = JSON.parse(localStorage.getItem(KEY)); if(s && s.pos) return s;
+    var o = JSON.parse(localStorage.getItem(OLDKEY));
+    if(o && typeof o.i === 'number'){ var k = keyOf(o.m, o.n), p = {}; p[k] = o.i; return {last:k, pos:p}; }
+  }catch(e){}
+  return {last:null, pos:{}};
+}
+function putStore(s){ try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){} }
+function getPos(m, n){ var v = store().pos[keyOf(m, n)]; return typeof v === 'number' ? v : 0; }
+function savePos(){ var s = store(), k = keyOf(mode, modeSec); s.pos[k] = pos; s.last = k; putStore(s); }
+function clearPos(m, n){ var s = store(), k = keyOf(m, n); delete s.pos[k]; if(s.last === k) s.last = null; putStore(s); }
+function lastTarget(){ var s = store(), t = parseKey(s.last); if(!t) return null; t.i = s.pos[s.last] || 0; return t; }
 function whereText(m, n, i){
   if(m === 'my'){ var me = loadMy().filter(function(x){return x.id === n;})[0]; return me ? 'tu texto «'+me.title+'»' : 'tu texto'; }
   var q = buildQueue(m, n), it = q[Math.min(i, q.length-1)];
   return (it && it.sec) ? 'apartado '+it.sec+' «'+SECTIONS[it.sec-1].title+'»' : 'introducción';
 }
+
+// ---- Mini reproductor: aparece dentro del apartado (o texto) que se está escuchando ----
+function elFor(m, n, i){
+  if(m === 'my') return document.getElementById('nv-my-'+n);
+  if(m === 'sec') return document.getElementById('nv-s'+n);
+  var q = getAll(), it = q[Math.min(i, q.length-1)];
+  return (it && it.sec) ? document.getElementById('nv-s'+it.sec) : document.getElementById('nv-intro');
+}
+function ensureMini(){
+  if(mini) return mini;
+  mini = document.createElement('div'); mini.className = 'nv-mini';
+  mini.innerHTML = '<span class="nv-mini-lbl"></span><button type="button" class="nv-pri nv-mini-pp"></button><button type="button" class="nv-mini-stop">⏹ Parar</button><button type="button" class="nv-mini-restart">⏮ Desde el principio</button>';
+  mini.querySelector('.nv-mini-pp').onclick = function(){
+    if(active && !paused){
+      if(synth && (synth.paused || (!synth.speaking && !synth.pending))){ if(synth.paused) synth.resume(); else speakAt(pos); }
+      else pauseReading();
+    } else if(active && paused){ resumeReading(); }
+    else { var t = lastTarget(); if(t) begin(t.m, t.n, t.i); }
+  };
+  mini.querySelector('.nv-mini-stop').onclick = stopReading;
+  mini.querySelector('.nv-mini-restart').onclick = function(){
+    if(active) begin(mode, modeSec, 0); else { var t = lastTarget(); if(t) begin(t.m, t.n, 0); }
+  };
+  return mini;
+}
+function placeMini(){
+  var m = ensureMini(), tg = null;
+  if(active) tg = {m:mode, n:modeSec, i:pos};
+  else { var t = lastTarget(); if(t && t.i > 0) tg = t; }
+  var host = tg ? elFor(tg.m, tg.n, tg.i) : null;
+  document.querySelectorAll('#nuevo .nv-has-mini').forEach(function(e){ if(e !== host) e.classList.remove('nv-has-mini'); });
+  if(!host){ m.classList.remove('on'); return; }
+  host.classList.add('nv-has-mini');
+  if(m.parentNode !== host){
+    var h3 = host.querySelector('h3');
+    if(h3 && h3.parentNode === host) host.insertBefore(m, h3.nextSibling); else host.appendChild(m);
+  }
+  m.classList.add('on');
+  var lbl = m.querySelector('.nv-mini-lbl'), pp = m.querySelector('.nv-mini-pp'), st = m.querySelector('.nv-mini-stop');
+  if(active){ lbl.textContent = paused ? '⏸ En pausa' : '🔊 Leyendo'; pp.textContent = paused ? '▶ Seguir' : '⏸ Pausa'; st.style.display = ''; }
+  else { lbl.textContent = 'Guardado donde lo dejaste'; pp.textContent = '▶ Continuar'; st.style.display = 'none'; }
+}
 function refreshUI(){
-  var s = readSaved(), running = active && !paused;
-  playBtn.textContent = (!running && s && s.m === 'all' && s.i > 0) ? '▶ Continuar donde lo dejé' : '▶ Escuchar todo';
-  pauseBtn.textContent = paused ? '▶ Seguir' : '⏸ Pausa';
-  restartBtn.style.display = (s && !running) ? '' : 'none';
+  var allPos = getPos('all', 0);
+  playBtn.textContent = (active && mode === 'all') ? (paused ? '▶ Seguir todo' : '🔊 Escuchando todo') : (allPos > 0 ? '▶ Continuar donde lo dejé' : '▶ Escuchar todo');
   document.querySelectorAll('#nuevo .nv-listen').forEach(function(b){
     var n = parseInt(b.getAttribute('data-sec'), 10);
-    b.textContent = (!running && s && s.m === 'sec' && s.n === n && s.i > 0) ? '🔊 Continuar este apartado' : '🔊 Escuchar este apartado';
+    b.textContent = (getPos('sec', n) > 0) ? '🔊 Continuar este apartado' : '🔊 Escuchar este apartado';
   });
   document.querySelectorAll('#nuevo .nv-my-listen').forEach(function(b){
-    var id = b.getAttribute('data-id');
-    b.textContent = (!running && s && s.m === 'my' && s.n === id && s.i > 0) ? '🔊 Continuar' : '🔊 Escuchar';
+    b.textContent = (getPos('my', b.getAttribute('data-id')) > 0) ? '🔊 Continuar' : '🔊 Escuchar';
   });
-  if('mediaSession' in navigator){ try{ navigator.mediaSession.playbackState = running ? 'playing' : (active ? 'paused' : 'none'); }catch(e){} }
+  if('mediaSession' in navigator){ try{ navigator.mediaSession.playbackState = (active && !paused) ? 'playing' : (active ? 'paused' : 'none'); }catch(e){} }
+  placeMini();
 }
 
 // ---- Segundo plano / pantalla bloqueada: audio silencioso + controles multimedia ----
@@ -461,25 +523,21 @@ function jumpSection(dir){
 }
 if('mediaSession' in navigator){
   var ms = navigator.mediaSession;
-  function setH(a, f){ try{ ms.setActionHandler(a, f); }catch(e){} }
-  setH('play', function(){ resumeReading(); });
+  var setH = function(a, f){ try{ ms.setActionHandler(a, f); }catch(e){} };
+  setH('play', function(){ if(active && paused) resumeReading(); else if(!active){ var t = lastTarget(); if(t) begin(t.m, t.n, t.i); } });
   setH('pause', function(){ pauseReading(); });
   setH('stop', function(){ stopReading(); });
   setH('previoustrack', function(){ jumpSection(-1); });
   setH('nexttrack', function(){ jumpSection(1); });
 }
-function startWatch(){
-  if(watch) return;
-  // Si el sistema corta o congela la voz (p. ej. al bloquear), retoma la frase actual.
-  watch = setInterval(function(){
-    if(!active || paused || !synth) return;
-    if(synth.paused){ synth.resume(); }
-    if(!synth.speaking && !synth.pending){ speakAt(pos); }
-  }, 2500);
+function nudge(){
+  // Si el sistema pausó o cortó la voz (al salir de la app o bloquear), la retoma por la frase actual.
+  if(!active || paused || !synth) return;
+  if(synth.paused){ synth.resume(); }
+  if(!synth.speaking && !synth.pending){ speakAt(pos); }
 }
-document.addEventListener('visibilitychange', function(){
-  if(!document.hidden && active && !paused && synth && !synth.speaking && !synth.pending){ speakAt(pos); }
-});
+function startWatch(){ if(!watch) watch = setInterval(nudge, 2500); }
+document.addEventListener('visibilitychange', function(){ if(!document.hidden) nudge(); });
 
 // ---- Lectura ----
 function speakAt(i){
@@ -496,7 +554,7 @@ function speakAt(i){
   u.onend = function(){ if(myGen === gen && active && !paused) speakAt(i+1); };
   u.onerror = function(e){ if(myGen !== gen) return; if(e && (e.error === 'canceled' || e.error === 'interrupted')) return; if(active && !paused) speakAt(i+1); };
   statusEl.textContent = 'Leyendo… ('+(i+1)+'/'+queue.length+')';
-  setMeta();
+  setMeta(); placeMini();
   synth.speak(u);
 }
 function begin(m, n, from){
@@ -524,36 +582,38 @@ function stopReading(){
   refreshUI();
 }
 function finish(){
-  active = false; paused = false; clearSaved(); clearMark(); keepAliveOff();
+  var m = mode, n = modeSec;
+  active = false; paused = false; clearPos(m, n); clearMark(); keepAliveOff();
   statusEl.textContent = 'Lectura terminada.'; refreshUI();
 }
+function listenTarget(m, n){
+  if(active && mode === m && modeSec === n){ if(paused) resumeReading(); return; }
+  begin(m, n, getPos(m, n));
+}
+
 // ---- Mis textos ----
 function renderMy(){
   var box = document.getElementById('nv-my-list'), a = loadMy();
+  if(mini && box.contains(mini)){ mini.classList.remove('on'); document.body.appendChild(mini); }
   box.innerHTML = '';
-  if(!a.length){ box.innerHTML = '<p style="font-size:.88rem">Todavía no has guardado ningún texto.</p>'; return; }
+  if(!a.length){ box.innerHTML = '<p style="font-size:.88rem">Todavía no has guardado ningún texto.</p>'; refreshUI(); return; }
   a.forEach(function(e){
     var row = document.createElement('div'); row.className = 'nv-my-item'; row.id = 'nv-my-'+e.id;
     var sp = document.createElement('span'); sp.textContent = e.title+' ';
     var sm = document.createElement('small'); sm.textContent = '· '+e.text.split(/\s+/).length+' palabras'; sp.appendChild(sm);
     var b1 = document.createElement('button'); b1.type = 'button'; b1.className = 'nv-my-listen'; b1.setAttribute('data-id', e.id); b1.textContent = '🔊 Escuchar';
-    b1.onclick = function(){ listenMy(e.id); };
+    b1.onclick = function(){ listenTarget('my', e.id); };
     var b2 = document.createElement('button'); b2.type = 'button'; b2.textContent = '🗑'; b2.setAttribute('aria-label', 'Borrar'); b2.onclick = function(){ deleteMy(e.id, e.title); };
     row.appendChild(sp); row.appendChild(b1); row.appendChild(b2); box.appendChild(row);
   });
   refreshUI();
 }
-function listenMy(id){
-  var s = readSaved();
-  if(active && mode === 'my' && modeSec === id){ if(paused) resumeReading(); return; }
-  if(!active && s && s.m === 'my' && s.n === id && s.i > 0) begin('my', id, s.i); else begin('my', id, 0);
-}
 function deleteMy(id, title){
   if(!confirm('¿Borrar «'+title+'»?')) return;
   if(active && mode === 'my' && modeSec === id) stopReading();
-  var s = readSaved(); if(s && s.m === 'my' && s.n === id) clearSaved();
+  clearPos('my', id);
   saveMy(loadMy().filter(function(x){return x.id !== id;}));
-  renderMy(); refreshUI();
+  renderMy();
 }
 document.getElementById('nv-my-save').onclick = function(){
   var tx = document.getElementById('nv-my-text').value.trim(); if(!tx) return;
@@ -566,22 +626,18 @@ document.getElementById('nv-my-save').onclick = function(){
 };
 document.getElementById('nv-my-clear').onclick = function(){ document.getElementById('nv-my-text').value = ''; document.getElementById('nv-my-title').value = ''; };
 playBtn.onclick = function(){
-  if(active && paused){ resumeReading(); return; }
-  if(active) return;
-  var s = readSaved();
-  if(s && s.m === 'all' && s.i > 0) begin('all', 0, s.i); else begin('all', 0, 0);
+  if(active && mode === 'all'){ if(paused) resumeReading(); return; }
+  begin('all', 0, getPos('all', 0));
 };
-restartBtn.onclick = function(){ var s = readSaved(); if(!s) return; begin(s.m, s.n, 0); };
 document.querySelectorAll('#nuevo .nv-listen').forEach(function(b){
-  b.onclick = function(){
-    var n = parseInt(b.getAttribute('data-sec'), 10), s = readSaved();
-    if(active && !paused && mode === 'sec' && modeSec === n) return;
-    if(!active && s && s.m === 'sec' && s.n === n && s.i > 0) begin('sec', n, s.i); else begin('sec', n, 0);
-  };
+  b.onclick = function(){ listenTarget('sec', parseInt(b.getAttribute('data-sec'), 10)); };
 });
-pauseBtn.onclick = function(){ if(paused) resumeReading(); else pauseReading(); };
-document.getElementById('nv-stop').onclick = stopReading;
-(function(){ renderMy(); var s = readSaved(); if(s && synth){ statusEl.textContent = 'Guardado en '+whereText(s.m, s.n, s.i)+'. Pulsa «Continuar».'; } refreshUI(); })();
+(function(){
+  renderMy();
+  var t = lastTarget();
+  if(t && t.i > 0 && synth){ statusEl.textContent = 'Guardado en '+whereText(t.m, t.n, t.i)+'. Pulsa «Continuar».'; }
+  refreshUI();
+})();
 // El botón «Nuevo» de la barra abre el panel y se desplaza hasta él.
 var det = document.getElementById('nv-details'), btn = document.getElementById('nvBtn');
 // «Nuevo» es una vista propia (como una pestaña): al abrirla se oculta el resto y el panel queda siempre abierto.
